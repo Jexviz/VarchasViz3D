@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio Minimal | VARCHAS.VIZ Studio®</title>
+
+    <!-- Fonts: Inter (Neo-Grotesque) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="../front/component.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                dark: "#0D0D0D",
+                light: "#F4F4F4",
+              },
+              accent: "#262626",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      body {
+        background-color: #f4f4f4;
+        color: #0d0d0d;
+        overflow-x: hidden;
+      }
+
+      /* Lenis Smooth Scroll Setup */
+      html.lenis {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      /* Hide scrollbar for clean look */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body class="selection:bg-primary-dark selection:text-primary-light">
+    <!-- ==============================================
+         NAVIGATION (Dark text for Light Mode)
+         ============================================== -->
+    <div id="universal-nav-container"></div>
+    <!-- ==============================================
+         SECTION 1: PROJECT HERO HEADER
+         ============================================== -->
+    <section class="pt-40 px-6 md:px-12 pb-16 max-w-[100vw]">
+      <!-- Label -->
+      <div class="flex items-center gap-3 mb-8 gs-reveal">
+        <div class="w-2 h-2 rounded-full bg-primary-dark"></div>
+        <span class="text-sm text-primary-dark/50 font-medium">Project</span>
+      </div>
+
+      <!-- Title -->
+      <h1
+        id="dyn-title"
+        class="text-5xl md:text-7xl lg:text-[5.5rem] font-medium tracking-tight leading-none mb-12 gs-reveal"
+      >
+        Studio Minimal
+      </h1>
+
+      <!-- Subtitle & CTA -->
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 gs-reveal"
+      >
+        <p
+          id="dyn-subtitle"
+          class="text-lg md:text-xl font-light text-primary-dark/70 max-w-md"
+        >
+          A compact living space designed with simplicity and efficiency
+        </p>
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 text-sm font-medium hover:opacity-50 transition-opacity whitespace-nowrap pb-1 border-b border-primary-dark"
+        >
+          Start a Project ↗
+        </a>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 2: METADATA GRID
+         ============================================== -->
+    <section class="px-6 md:px-12 mb-16 gs-reveal">
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-black/10"
+      >
+        <!-- Year -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm text-primary-dark/50 font-medium">Year:</span>
+          <span id="dyn-year" class="text-lg font-medium">2026</span>
+        </div>
+        <!-- Service -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm text-primary-dark/50 font-medium">Service:</span>
+          <span id="dyn-service" class="text-lg font-medium"
+            >Interior Design</span
+          >
+        </div>
+        <!-- Duration -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm text-primary-dark/50 font-medium"
+            >Duration:</span
+          >
+          <span id="dyn-duration" class="text-lg font-medium">3 Months</span>
+        </div>
+        <!-- Budget -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm text-primary-dark/50 font-medium">Budget:</span>
+          <span id="dyn-budget" class="text-lg font-medium">€20K - €30K</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 3: MAIN HERO IMAGE
+         ============================================== -->
+    <section class="px-6 md:px-12 mb-24">
+      <div
+        class="w-full h-[60vh] md:h-[80vh] overflow-hidden bg-gray-300 gs-image rounded-sm"
+      >
+        <img
+          id="dyn-cover"
+          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop"
+          alt="Studio Minimal Living Room"
+          class="w-full h-full object-cover scale-105"
+        />
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 4: PROJECT NARRATIVE (Overview & Constraints)
+         ============================================== -->
+    <section class="px-6 md:px-12 pb-32 space-y-32">
+      <!-- Overview Text -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start gs-reveal">
+        <div class="md:col-span-4 lg:col-span-3">
+          <span class="text-lg font-medium">Overview :</span>
+        </div>
+        <div class="md:col-span-8 lg:col-span-6 lg:col-start-7">
+          <p
+            id="dyn-description"
+            class="text-[1.35rem] md:text-2xl font-light leading-[1.5] text-primary-dark/80"
+          >
+            A compact living space designed to maximize functionality through
+            efficient planning and minimal detailing. The project focuses on
+            clarity, simplicity, and intelligent use of space to support modern
+            urban living.
+          </p>
+        </div>
+      </div>
+
+      <!-- Narrative Image 1 (Tall) -->
+      <div
+        class="w-full h-[70vh] overflow-hidden bg-gray-300 gs-image rounded-sm"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=2000&auto=format&fit=crop"
+          alt="Minimalist suspended sculpture"
+          class="w-full h-full object-cover scale-105"
+        />
+      </div>
+
+      <!-- Constraints Text -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start gs-reveal">
+        <div class="md:col-span-4 lg:col-span-3">
+          <span class="text-lg font-medium">Constraints :</span>
+        </div>
+        <div class="md:col-span-8 lg:col-span-6 lg:col-start-7">
+          <p
+            class="text-[1.35rem] md:text-2xl font-light leading-[1.5] text-primary-dark/80"
+          >
+            The limited area required multifunctional solutions and careful
+            zoning to avoid clutter. Storage, circulation, and usability were
+            key challenges addressed through thoughtful design.
+          </p>
+        </div>
+      </div>
+
+      <!-- Narrative Image 2 (Wide) -->
+      <div
+        class="w-full h-[60vh] overflow-hidden bg-gray-300 gs-image rounded-sm"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2500&auto=format&fit=crop"
+          alt="Curved modern sofa"
+          class="w-full h-full object-cover scale-105"
+        />
+      </div>
+
+      <!-- Outcome Text -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start gs-reveal">
+        <div class="md:col-span-4 lg:col-span-3">
+          <span class="text-lg font-medium">Outcome :</span>
+        </div>
+        <div class="md:col-span-8 lg:col-span-6 lg:col-start-7">
+          <p
+            class="text-[1.35rem] md:text-2xl font-light leading-[1.5] text-primary-dark/80"
+          >
+            The final space achieves a balance between efficiency and
+            aesthetics, offering a clean and highly functional environment.
+            Every element contributes to a sense of order and usability without
+            compromising visual simplicity.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 6: PARALLAX CTA & FOOTER
+         ============================================== -->
+    <div id="universal-footer-container"></div>
+
+    <!-- ==============================================
+         JAVASCRIPT DEPS & LOGIC
+         ============================================== -->
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: "vertical",
+          gestureDirection: "vertical",
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Integrate Lenis with GSAP
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // 2. Storytelling Reveal Animations (Fade Up)
+        const revealElements = gsap.utils.toArray(".gs-reveal");
+        revealElements.forEach((elem) => {
+          gsap.fromTo(
+            elem,
+            { autoAlpha: 0, y: 40 },
+            {
+              duration: 1,
+              autoAlpha: 1,
+              y: 0,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: elem,
+                start: "top 85%", // Triggers when the top of the element hits 85% of the viewport height
+                toggleActions: "play none none reverse",
+              },
+            },
+          );
+        });
+
+        // 3. Subtle Parallax for Images
+        const images = gsap.utils.toArray(".gs-image img");
+        images.forEach((img) => {
+          gsap.to(img, {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+
+        // 4. Parallax Banner Animation
+        gsap.to("#parallax-cta", {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#parallax-cta",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      });
+      // ==============================================
+      // 5. FETCH SINGLE PROJECT DATA
+      // ==============================================
+      function loadSingleProject() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = parseInt(urlParams.get("id"));
+
+        if (!projectId) {
+          console.log("No project ID found in URL.");
+          return;
+        }
+
+        // STATIC DATA: Completely unique details for every project
+        const allProjects = [
+          {
+            id: 1,
+            title: "Core Apartment",
+            location: "A hyper-aesthetic residential space in Surat, Gujarat.",
+            year: "2025",
+            service: "Interior Architecture",
+            duration: "8 Months",
+            budget: "₹45L - ₹60L",
+            description:
+              "The Core Apartment strips away unnecessary clutter, focusing on raw concrete textures and warm timber accents. Every corner was designed with a hyperrealistic aesthetic in mind, ensuring perfect lighting and minimal visual noise for a serene living experience.",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
+          },
+          {
+            id: 2,
+            title: "Linear Workspace",
+            location:
+              "A corporate tech hub in Pimpri-Chinchwad focused on workflow.",
+            year: "2026",
+            service: "Commercial Interior",
+            duration: "4 Months",
+            budget: "₹80L - ₹1.2Cr",
+            description:
+              "Designed for a fast-paced software engineering firm, the Linear Workspace utilizes geometric lighting and smart glass partitions. The layout is optimized to maintain an open-plan feel for collaboration, while providing necessary acoustic privacy for backend teams focused on deep work.",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
+          },
+          {
+            id: 3,
+            title: "Horizon Villa",
+            location:
+              "A luxury hillside retreat blending indoor and outdoor living.",
+            year: "2024",
+            service: "Architecture & Landscape",
+            duration: "18 Months",
+            budget: "₹3.5Cr - ₹5.0Cr",
+            description:
+              "Horizon Villa is a ground-up architectural build. The structure uses expansive floor-to-ceiling glazing to erase the boundaries between the minimalist interior and the surrounding natural landscape, offering a cinematic, high-resolution view of the valley.",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop",
+          },
+          {
+            id: 4,
+            title: "Studio Minimal",
+            location: "A compact, highly functional urban loft.",
+            year: "2023",
+            service: "Space Planning & Renovation",
+            duration: "10 Weeks",
+            budget: "₹12L - ₹18L",
+            description:
+              "A compact living space designed to maximize functionality through efficient planning and minimal detailing. The project features modular furniture and hidden storage compartments, proving that limited square footage does not mean compromising on high-end design.",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
+          },
+        ];
+
+        // Find the project that matches the ID in the URL
+        const project = allProjects.find((p) => p.id === projectId);
+
+        if (!project) {
+          document.getElementById("dyn-title").innerText = "Project Not Found";
+          return;
+        }
+
+        // Inject the data into the page
+        document.getElementById("dyn-title").innerText = project.title;
+        document.getElementById("dyn-subtitle").innerText = project.location;
+        document.getElementById("dyn-year").innerText = project.year;
+        document.getElementById("dyn-service").innerText = project.service;
+        document.getElementById("dyn-duration").innerText = project.duration;
+        document.getElementById("dyn-budget").innerText = project.budget;
+        document.getElementById("dyn-description").innerText =
+          project.description;
+
+        if (project.cover_image_url) {
+          document.getElementById("dyn-cover").src = project.cover_image_url;
+        }
+      }
+
+      // Fire it!
+      loadSingleProject();
+      // Fire it!
+      loadSingleProject();
+      // Fire the function!
+      loadSingleProject();
+    </script>
+  </body>
+</html>

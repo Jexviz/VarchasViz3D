@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VARCHAS.VIZ Studio® | Architectural Portfolio</title>
+
+    <!-- Fonts: Inter (Neo-Grotesque) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                dark: "#0D0D0D",
+                light: "#F5F5F5",
+              },
+              accent: "#262626",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            transitionTimingFunction: {
+              expo: "cubic-bezier(0.16, 1, 0.3, 1)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      body {
+        background-color: #0d0d0d;
+        color: #f5f5f5;
+        overflow-x: hidden;
+      }
+
+      /* Lenis Smooth Scroll Setup */
+      html.lenis {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      /* Hardware Acceleration */
+      .hw-accel {
+        will-change: transform, opacity;
+        transform: translateZ(0);
+      }
+
+      /* Blueprint Grid Pattern */
+      .blueprint-bg {
+        background-color: #0d0d0d;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+
+      /* FAQ Accordion Transitions */
+      .faq-content {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .faq-content > div {
+        overflow: hidden;
+      }
+      .faq-item.active .faq-content {
+        grid-template-rows: 1fr;
+      }
+      .faq-icon {
+        transition: transform 0.5s ease;
+      }
+      .faq-item.active .faq-icon {
+        transform: rotate(45deg);
+      }
+
+      /* Hide scrollbar for clean look */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body class="selection:bg-primary-light selection:text-primary-dark">
+    <!-- ==============================================
+         SECTION 1: HERO CONTAINER (300vh Scroll-Driven)
+         ============================================== -->
+    <section id="hero-track" class="relative h-[300vh] w-full bg-primary-dark">
+      <!-- Sticky Viewport -->
+      <div
+        class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between z-0"
+      >
+        <!-- Background Animation Layers (Fixed z-index & No Scaling) -->
+        <div class="absolute inset-0 z-0 hw-accel">
+          <!-- Layer 0: The Empty Grid (Starting State) -->
+          <div
+            id="layer-grid"
+            class="absolute inset-0 blueprint-bg opacity-100"
+          ></div>
+
+          <!-- Layer 1: 3D Clay Wireframe -->
+          <div id="layer-clay" class="absolute inset-0 opacity-0">
+            <img
+              src="../front/images/Picsart_26-06-30_22-19-45-129 (1).jpg"
+              alt="Architecture Clay"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Layer 2: Final Render -->
+          <div id="layer-render" class="absolute inset-0 opacity-0">
+            <img
+              src="../front/images/Picsart_26-06-30_22-18-41-479.png"
+              alt="Architecture Render"
+              class="w-full h-full object-cover"
+            />
+            <!-- Dark gradient to ensure text readability -->
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"
+            ></div>
+          </div>
+        </div>
+
+        <!-- UI Container (Sits on top of backgrounds) -->
+        <div
+          class="relative z-10 w-full h-full flex flex-col p-6 md:p-12 pointer-events-none"
+        >
+          <!-- Top Navigation Bar -->
+          <nav
+            class="flex justify-between items-start text-sm uppercase tracking-widest font-medium w-full pointer-events-auto"
+          >
+            <div class="w-1/3">
+              <span
+                class="text-xl font-bold tracking-tighter normal-case text-white"
+                >VarchasViz®</span
+              >
+            </div>
+            <div
+              class="w-1/3 hidden md:flex justify-center gap-8 text-white/80"
+            >
+              <a
+                href="../front/index.html"
+                class="hover:text-white transition-colors duration-300"
+                >Home</a
+              >
+              <a
+                href="../front/about.html"
+                class="hover:text-white transition-colors duration-300"
+                >About</a
+              >
+              <a
+                href="../front/projects.html"
+                class="hover:text-white transition-colors duration-300"
+                >Projects</a
+              >
+              <a
+                href="../front/contact.html"
+                class="hover:text-white transition-colors duration-300"
+                >Contact</a
+              >
+            </div>
+            <div
+              class="w-1/3 hidden md:flex justify-end gap-6 text-white/80 text-right"
+            >
+              <a
+                href="mailto:varchasviz3d@gmail.com"
+                class="hover:text-white transition-colors duration-300"
+                >varchasviz3d@gmail.com</a
+              >
+              <a
+                href="tel:+91 9426513742"
+                class="hover:text-white transition-colors duration-300"
+                >(+91) 9426513742</a
+              >
+            </div>
+          </nav>
+
+          <!-- Animated Center Elements -->
+          <h1
+            id="varchas-brand"
+            class="absolute text-[12vw] md:text-[10vw] leading-none font-black tracking-tighter text-white/90 select-none whitespace-nowrap drop-shadow-lg"
+          >
+            VARCHAS
+          </h1>
+
+          <div
+            id="varchas-sub"
+            class="absolute w-full max-w-2xl px-6 text-center flex flex-col items-center"
+          >
+            <p
+              class="text-lg md:text-xl leading-relaxed text-white font-light mb-6 drop-shadow-md"
+            >
+              We design spaces that are simple, functional, and thoughtfully
+              planned to improve how you live and work.
+            </p>
+            <a
+              href="../front/contact.html"
+              class="pointer-events-auto group inline-flex items-center gap-2 text-sm uppercase tracking-widest font-medium text-white hover:text-white/70 transition-colors"
+            >
+              Start a Project
+              <span
+                class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                >↗</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 2: SELECTED WORK (Light Mode)
+         ============================================== -->
+    <section
+      id="work-section"
+      class="bg-primary-light text-primary-dark pt-32 pb-24 px-6 md:px-12 relative z-20 transition-colors duration-700 ease-in-out"
+    >
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row justify-between items-end mb-24">
+        <div class="w-full md:w-1/2">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-2 h-2 rounded-full bg-primary-dark"></div>
+            <span class="uppercase tracking-widest text-xs font-bold"
+              >Projects</span
+            >
+          </div>
+          <h2 class="text-6xl md:text-8xl font-black tracking-tighter">
+            Selected Work
+          </h2>
+        </div>
+        <div class="w-full md:w-1/3 mt-8 md:mt-0">
+          <p class="text-lg font-light text-primary-dark/70 leading-relaxed">
+            A collection of spaces defined by simplicity and intention.
+          </p>
+        </div>
+      </div>
+
+      <!-- Asymmetrical Masonry Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-24">
+        <a
+          href="../front/project-detail.html?id=1"
+          class="md:col-span-7 group cursor-pointer relative h-[60vh] md:h-[80vh] overflow-hidden bg-gray-200 block"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop"
+            class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-105 group-hover:brightness-90"
+            alt="Linear Workspace"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          ></div>
+          <div class="absolute bottom-8 left-8 text-white z-10">
+            <h3 class="text-2xl font-bold tracking-tight">Linear Workspace</h3>
+          </div>
+          <div class="absolute bottom-8 right-8 text-white z-10">
+            <span class="text-sm font-medium">2026</span>
+          </div>
+        </a>
+
+        <a
+          href="../front/project-detail.html?id=2"
+          class="md:col-span-5 group cursor-pointer relative h-[60vh] md:h-[80vh] overflow-hidden bg-gray-200 mt-0 md:mt-24 block"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop"
+            class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-105 group-hover:brightness-90"
+            alt="Concrete House"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          ></div>
+          <div class="absolute bottom-8 left-8 text-white z-10">
+            <h3 class="text-2xl font-bold tracking-tight">Concrete House</h3>
+          </div>
+          <div class="absolute bottom-8 right-8 text-white z-10">
+            <span class="text-sm font-medium">2025</span>
+          </div>
+        </a>
+
+        <a
+          href="../front/project-detail.html?id=3"
+          class="md:col-span-4 group cursor-pointer relative h-[50vh] overflow-hidden bg-gray-200 block"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
+            class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-105 group-hover:brightness-90"
+            alt="Axis Office"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          ></div>
+          <div class="absolute bottom-8 left-8 text-white z-10">
+            <h3 class="text-2xl font-bold tracking-tight">Axis Office</h3>
+          </div>
+          <div class="absolute bottom-8 right-8 text-white z-10">
+            <span class="text-sm font-medium">2024</span>
+          </div>
+        </a>
+
+        <a
+          href="../front/project-detail.html?id=4"
+          class="md:col-span-8 group cursor-pointer relative h-[50vh] overflow-hidden bg-gray-200 block"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2069&auto=format&fit=crop"
+            class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-105 group-hover:brightness-90"
+            alt="The Pavilion"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          ></div>
+          <div class="absolute bottom-8 left-8 text-white z-10">
+            <h3 class="text-2xl font-bold tracking-tight">The Pavilion</h3>
+          </div>
+          <div class="absolute bottom-8 right-8 text-white z-10">
+            <span class="text-sm font-medium">2026</span>
+          </div>
+        </a>
+      </div>
+      <!-- Section Footer -->
+      <div class="flex justify-center">
+        <a
+          href="../front/projects.html"
+          class="text-sm uppercase tracking-widest font-bold pb-1 border-b border-primary-dark hover:text-primary-dark/60 hover:border-primary-dark/60 transition-colors"
+        >
+          See All Works
+        </a>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 3: PROCESS (Dark Mode Blueprint Grid)
+         ============================================== -->
+    <section
+      id="process-section"
+      class="bg-primary-dark text-primary-light pt-32 pb-0 relative z-20 border-t border-accent"
+    >
+      <div class="px-6 md:px-12 mb-20">
+        <!-- Header -->
+        <div
+          class="flex flex-col md:flex-row justify-between items-start mb-12"
+        >
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-primary-light"></div>
+              <span
+                class="uppercase tracking-widest text-xs font-bold text-white/60"
+                >Process</span
+              >
+            </div>
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
+              How We Work
+            </h2>
+          </div>
+          <div class="mt-6 md:mt-0">
+            <a
+              href="../front/contact.html"
+              class="px-6 py-3 border border-accent rounded-full text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              Start a Project ↗
+            </a>
+          </div>
+        </div>
+        <p class="text-xl md:text-2xl font-light text-white/60 max-w-2xl">
+          We follow a clear process to keep every step simple, structured, and
+          easy to manage.
+        </p>
+      </div>
+
+      <!-- 4-Step Interactive Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 border-t border-accent">
+        <!-- Step 01 -->
+        <div
+          class="group relative p-8 md:p-16 border-b md:border-r border-accent hover:bg-[#111] transition-colors duration-500 overflow-hidden min-h-[40vh] flex flex-col justify-between"
+        >
+          <div class="relative z-10">
+            <h3 class="text-2xl font-bold mb-4">/01 Discover</h3>
+            <p class="text-white/60 font-light max-w-sm">
+              We understand your vision, lifestyle, and spatial requirements.
+            </p>
+          </div>
+          <div
+            class="absolute right-[-10%] bottom-[-10%] w-64 h-64 border-[0.5px] border-accent/30 rounded-full group-hover:border-white/20 group-hover:scale-110 transition-all duration-700 ease-expo"
+          >
+            <div
+              class="absolute inset-4 border-[0.5px] border-accent/30 rounded-full"
+            ></div>
+            <div
+              class="absolute top-1/2 left-0 w-full h-[0.5px] bg-accent/30"
+            ></div>
+            <div
+              class="absolute left-1/2 top-0 w-[0.5px] h-full bg-accent/30"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Step 02 -->
+        <div
+          class="group relative p-8 md:p-16 border-b border-accent hover:bg-[#111] transition-colors duration-500 overflow-hidden min-h-[40vh] flex flex-col justify-between"
+        >
+          <div class="relative z-10">
+            <h3 class="text-2xl font-bold mb-4">/02 Concept</h3>
+            <p class="text-white/60 font-light max-w-sm">
+              We define the layout, atmosphere, and overall design direction.
+            </p>
+          </div>
+          <div
+            class="absolute right-8 bottom-8 w-48 h-48 group-hover:scale-105 transition-all duration-700 ease-expo opacity-30 group-hover:opacity-60"
+          >
+            <svg
+              viewBox="0 0 100 100"
+              class="w-full h-full stroke-white fill-none stroke-[0.5]"
+            >
+              <rect x="10" y="10" width="80" height="80" />
+              <line x1="10" y1="40" x2="50" y2="40" />
+              <line x1="50" y1="10" x2="50" y2="90" />
+              <rect x="60" y="20" width="20" height="20" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Step 03 -->
+        <div
+          class="group relative p-8 md:p-16 border-b md:border-b-0 md:border-r border-accent hover:bg-[#111] transition-colors duration-500 overflow-hidden min-h-[40vh] flex flex-col justify-between"
+        >
+          <div class="relative z-10">
+            <h3 class="text-2xl font-bold mb-4">/03 Development</h3>
+            <p class="text-white/60 font-light max-w-sm">
+              We refine materials, lighting, furniture, and spatial details.
+            </p>
+          </div>
+          <div
+            class="absolute right-8 bottom-8 w-48 h-48 group-hover:scale-110 transition-all duration-700 ease-expo opacity-20 group-hover:opacity-70 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+          >
+            <svg
+              viewBox="0 0 100 100"
+              class="w-full h-full stroke-white fill-none stroke-[0.5]"
+            >
+              <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+              <line x1="50" y1="50" x2="50" y2="90" />
+              <line x1="50" y1="50" x2="10" y2="30" />
+              <line x1="50" y1="50" x2="90" y2="30" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Step 04 -->
+        <div
+          class="group relative p-8 md:p-16 border-accent hover:bg-[#111] transition-colors duration-500 overflow-hidden min-h-[40vh] flex flex-col justify-between"
+        >
+          <div class="relative z-10">
+            <h3 class="text-2xl font-bold mb-4">/04 Execution</h3>
+            <p class="text-white/60 font-light max-w-sm">
+              We execute the design with consistency and attention to detail.
+            </p>
+          </div>
+          <div
+            class="absolute right-[-10%] bottom-[-20%] w-[120%] h-64 opacity-10 group-hover:opacity-30 transition-all duration-1000 ease-expo blueprint-bg"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 4: FAQ & PARALLAX BANNER (Light to Dark)
+         ============================================== -->
+    <section
+      id="faq-section"
+      class="bg-primary-light text-primary-dark pt-32 pb-0 relative z-20"
+    >
+      <div class="px-6 md:px-12 flex flex-col md:flex-row gap-16 pb-32">
+        <!-- Left Header -->
+        <div class="w-full md:w-1/3">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-2 h-2 rounded-full bg-primary-dark"></div>
+            <span
+              class="uppercase tracking-widest text-xs font-bold text-primary-dark/60"
+              >FAQ</span
+            >
+          </div>
+          <h2 class="text-4xl font-bold tracking-tighter mb-4">
+            Your Questions, Answered
+          </h2>
+          <p class="text-sm text-primary-dark/70 max-w-xs">
+            Everything you need to know about our process, timelines, and
+            architectural services.
+          </p>
+        </div>
+
+        <!-- Right Accordion -->
+        <div class="w-full md:w-2/3 border-t border-accent/20">
+          <!-- Q1 -->
+          <div
+            class="faq-item border-b border-accent/20 cursor-pointer py-6"
+            onclick="this.classList.toggle('active')"
+          >
+            <div class="flex justify-between items-center text-xl font-medium">
+              <h4>How long does a project take?</h4>
+              <span class="faq-icon text-2xl font-light">+</span>
+            </div>
+            <div class="faq-content">
+              <div class="pt-4 text-primary-dark/70 font-light leading-relaxed">
+                Project timelines vary significantly based on scope and
+                complexity. A standard residential interior remodel might take
+                3-5 months, while ground-up architectural builds can take 12-24
+                months from concept to final execution.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div
+            class="faq-item border-b border-accent/20 cursor-pointer py-6"
+            onclick="this.classList.toggle('active')"
+          >
+            <div class="flex justify-between items-center text-xl font-medium">
+              <h4>What services do you offer?</h4>
+              <span class="faq-icon text-2xl font-light">+</span>
+            </div>
+            <div class="faq-content">
+              <div class="pt-4 text-primary-dark/70 font-light leading-relaxed">
+                We provide full-scale architectural design, interior design,
+                spatial planning, 3D visualization, and project management to
+                ensure the integrity of the design is maintained through
+                construction.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div
+            class="faq-item border-b border-accent/20 cursor-pointer py-6"
+            onclick="this.classList.toggle('active')"
+          >
+            <div class="flex justify-between items-center text-xl font-medium">
+              <h4>Do you handle both residential and commercial projects?</h4>
+              <span class="faq-icon text-2xl font-light">+</span>
+            </div>
+            <div class="faq-content">
+              <div class="pt-4 text-primary-dark/70 font-light leading-relaxed">
+                Yes. Our portfolio spans high-end residential homes, boutique
+                commercial spaces, minimalist corporate offices, and hospitality
+                venues that require a refined, intentional approach.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parallax Banner -->
+      <div
+        class="relative h-[80vh] w-full overflow-hidden flex items-center justify-center"
+      >
+        <div
+          id="parallax-img"
+          class="absolute inset-0 w-full h-[120%] -top-[10%] z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=3200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Brutalist Facade"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10 text-center px-6">
+          <h2
+            class="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase mix-blend-overlay"
+          >
+            Ready to Elevate <br />
+            Your Space?
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 5: PREMIUM BRAND FOOTER (Dark Mode)
+         ============================================== -->
+    <footer
+      id="footer"
+      class="bg-primary-dark text-primary-light pt-32 relative z-20 overflow-hidden"
+    >
+      <div
+        class="px-6 md:px-12 flex flex-col md:flex-row justify-between mb-32 gap-16"
+      >
+        <!-- Newsletter -->
+        <div class="w-full md:w-1/3">
+          <h4 class="text-xl font-bold mb-6">Studio Insights & Updates</h4>
+          <div
+            class="relative flex items-center border-b border-accent/50 pb-4 focus-within:border-white transition-colors"
+          >
+            <input
+              type="email"
+              placeholder="Enter Your Email"
+              class="bg-transparent w-full outline-none text-white/80 placeholder-white/40 font-light text-lg"
+            />
+            <button
+              class="absolute right-0 uppercase tracking-widest text-sm font-bold hover:text-white/60 transition-colors"
+            >
+              Subscribe ↗
+            </button>
+          </div>
+        </div>
+
+        <!-- Links & Details -->
+        <div
+          class="w-full md:w-1/2 grid grid-cols-2 md:grid-cols-3 gap-8 text-sm uppercase tracking-widest font-medium text-white/60"
+        >
+          <!-- Nav -->
+          <div class="flex flex-col gap-4">
+            <a
+              href="../front/index.html"
+              class="hover:text-white transition-colors"
+              >Home</a
+            >
+            <a
+              href="../front/about.html"
+              class="hover:text-white transition-colors"
+              >About</a
+            >
+            <a
+              href="../front/projects.html"
+              class="hover:text-white transition-colors"
+              >Projects</a
+            >
+            <a
+              href="../front/contact.html"
+              class="hover:text-white transition-colors"
+              >Contact</a
+            >
+          </div>
+          <!-- Socials -->
+          <div class="flex flex-col gap-4">
+            <a href="#" class="hover:text-white transition-colors">Twitter</a>
+            <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            <a href="#" class="hover:text-white transition-colors">Linkedin</a>
+          </div>
+          <!-- Contact -->
+          <div
+            class="flex flex-col gap-4 normal-case tracking-normal font-light"
+          >
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=varchasviz3d@gmail.com"
+              target="_blank"
+              class="text-lg font-medium hover:opacity-60 transition-opacity"
+              >varchazviz3d@gmail.com</a
+            >
+            <a
+              href="tel:+919426513742"
+              class="hover:text-white transition-colors"
+              >(+91) 94265 13742</a
+            >
+            <p class="mt-4 text-white/40">Surat, India</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monumental Wordmark -->
+      <div
+        class="w-full flex justify-center items-end leading-none overflow-hidden pb-4"
+      >
+        <h1
+          class="text-[18vw] font-black tracking-tighter text-white uppercase text-center w-full transform translate-y-[15%]"
+        >
+          VARCHAS Studio®
+        </h1>
+      </div>
+    </footer>
+
+    <!-- ==============================================
+         JAVASCRIPT DEPS & LOGIC
+         ============================================== -->
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Init Lenis Smooth Scroll
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: "vertical",
+          gestureDirection: "vertical",
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Integrate Lenis with GSAP ScrollTrigger
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // ----------------------------------------------------
+        // UI Text Initial Positioning Setup
+        // ----------------------------------------------------
+        gsap.set("#varchas-brand", {
+          top: "45%",
+          left: "50%",
+          xPercent: -50,
+          yPercent: -50,
+        });
+
+        gsap.set("#varchas-sub", {
+          top: "60%",
+          left: "50%",
+          xPercent: -50,
+          yPercent: -50,
+        });
+
+        // 2. Hero Transformation Sequence (Scroll-driven)
+        const heroTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#hero-track",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.5, // Keeps it trailing smoothly
+          },
+        });
+
+        // Sequence: Text Animation ➔ 3D Clay ➔ Final Render
+        heroTl
+          // 1. PHASE ONE: Text Animation
+          // VARCHAS text flies to bottom right corner and gets massive
+          .to(
+            "#varchas-brand",
+            {
+              top: "100%",
+              left: "100%",
+              xPercent: -100,
+              yPercent: -100,
+              fontSize: "15vw",
+              duration: 2,
+              ease: "sine.inOut",
+            },
+            0,
+          )
+
+          // Sub-text fades out and flies up
+          .to(
+            "#varchas-sub",
+            {
+              yPercent: -150,
+              opacity: 0,
+              duration: 1.5,
+              ease: "sine.inOut",
+            },
+            0,
+          )
+
+          // 2. PHASE TWO: Fade to 3D Clay
+          // (Starts slightly after text begins animating)
+          .to("#layer-clay", { opacity: 1, duration: 2, ease: "sine.inOut" }, 1)
+
+          // 3. PHASE THREE: Fade to Final Render
+          .to(
+            "#layer-render",
+            { opacity: 1, duration: 2, ease: "sine.inOut" },
+            3,
+          )
+
+          // 4. Final Hold before next section
+          .to({}, { duration: 1 });
+
+        // 3. Parallax Banner Animation
+        gsap.to("#parallax-img", {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#faq-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        // 4. Subtle reveal for process grid items
+        const processItems = gsap.utils.toArray("#process-section .group");
+        processItems.forEach((item) => {
+          gsap.from(item, {
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

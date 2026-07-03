@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | VARCHAS.VIZ Studio®</title>
+
+    <!-- Fonts: Inter (Neo-Grotesque) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="../front/component.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                dark: "#0D0D0D",
+                light: "#F4F4F4",
+              },
+              accent: "#262626",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      body {
+        background-color: #f4f4f4;
+        color: #0d0d0d;
+        overflow-x: hidden;
+      }
+
+      /* Lenis Smooth Scroll Setup */
+      html.lenis {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      /* FAQ Accordion Transitions */
+      .faq-content {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .faq-content > div {
+        overflow: hidden;
+      }
+      .faq-item.active .faq-content {
+        grid-template-rows: 1fr;
+      }
+      .faq-icon {
+        display: inline-block;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .faq-item.active .faq-icon {
+        transform: rotate(45deg);
+      }
+
+      /* Form Input specific styling to remove default webkit appearance */
+      input,
+      select,
+      textarea {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+      /* Hide scrollbar for clean look */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body class="selection:bg-primary-dark selection:text-primary-light">
+    <!-- ==============================================
+         NAVIGATION
+         ============================================== -->
+    <div id="universal-header-container"></div>
+    <!-- ==============================================
+         SECTION 1: CONTACT HERO & FORM
+         ============================================== -->
+    <section class="pt-40 px-6 md:px-12 pb-32 max-w-[100vw]">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <!-- Left Column: Heading & Form -->
+        <div>
+          <!-- Label -->
+          <div class="flex items-center gap-3 mb-8 gs-reveal">
+            <div class="w-2 h-2 rounded-full bg-primary-dark"></div>
+            <span class="text-sm font-medium">Contact</span>
+          </div>
+
+          <!-- Title -->
+          <h1
+            class="text-5xl md:text-7xl font-medium tracking-tight leading-[1.05] mb-16 gs-reveal"
+          >
+            Let's discuss your<br />project.
+          </h1>
+
+          <!-- The Form -->
+          <!-- The Form -->
+          <form
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            class="space-y-8 gs-reveal"
+          >
+            <!-- REQUIRED: Replace value with your actual Web3Forms Access Key -->
+            <input
+              type="hidden"
+              name="access_key"
+              value="e0631d50-a65b-4c81-a53d-195629a68a1e"
+            />
+
+            <!-- OPTIONAL: Custom redirect after successful submission (Update with your live URL later) -->
+            <!-- <input type="hidden" name="redirect" value="https://yourwebsite.com/success.html"> -->
+
+            <!-- Name Input -->
+            <div class="flex flex-col gap-2">
+              <label for="name" class="text-sm font-medium text-primary-dark/80"
+                >Name</label
+              >
+              <!-- Added name="name" and required -->
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Jane Smith"
+                required
+                class="w-full bg-transparent border border-black/20 rounded-sm p-4 text-primary-dark placeholder-primary-dark/30 focus:border-primary-dark outline-none transition-colors"
+              />
+            </div>
+
+            <!-- Email Input -->
+            <div class="flex flex-col gap-2">
+              <label
+                for="email"
+                class="text-sm font-medium text-primary-dark/80"
+                >Email</label
+              >
+              <!-- Added name="email" and required -->
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="janesmith@gmail.com"
+                required
+                class="w-full bg-transparent border border-black/20 rounded-sm p-4 text-primary-dark placeholder-primary-dark/30 focus:border-primary-dark outline-none transition-colors"
+              />
+            </div>
+
+            <!-- Service Dropdown -->
+            <div class="flex flex-col gap-2 relative">
+              <label
+                for="service"
+                class="text-sm font-medium text-primary-dark/80"
+                >Service</label
+              >
+              <!-- Added name="service" -->
+              <select
+                id="service"
+                name="service"
+                required
+                class="w-full bg-transparent border border-black/20 rounded-sm p-4 text-primary-dark focus:border-primary-dark outline-none transition-colors cursor-pointer"
+              >
+                <option value="" disabled selected class="text-primary-dark/30">
+                  Select...
+                </option>
+                <option value="Interior Design">Interior Design</option>
+                <option value="Architecture">Architecture</option>
+                <option value="Space Planning">Space Planning</option>
+                <option value="Renovation">Renovation</option>
+              </select>
+              <!-- Custom dropdown arrow -->
+              <div
+                class="absolute right-4 top-[2.75rem] pointer-events-none opacity-50"
+              >
+                <svg
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1.5L6 6.5L11 1.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Message Textarea -->
+            <div class="flex flex-col gap-2">
+              <label
+                for="message"
+                class="text-sm font-medium text-primary-dark/80"
+                >Message</label
+              >
+              <!-- Added name="message" and required -->
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                required
+                placeholder="Tell us about your project"
+                class="w-full bg-transparent border border-black/20 rounded-sm p-4 text-primary-dark placeholder-primary-dark/30 focus:border-primary-dark outline-none transition-colors resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="group bg-primary-dark text-white px-8 py-4 rounded-sm flex items-center justify-center gap-2 hover:bg-black transition-colors font-medium mt-4 cursor-pointer"
+            >
+              Submit
+              <span
+                class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                >↗</span
+              >
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Column: Info & Details (No Map) -->
+        <div class="flex flex-col lg:pl-16 xl:pl-24 pt-4 lg:pt-32 gs-reveal">
+          <p
+            class="text-xl md:text-2xl font-light leading-[1.5] text-primary-dark/80 mb-16 lg:mb-24"
+          >
+            Share your requirements and we'll get back with a clear next step.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            <!-- Email -->
+            <div class="flex flex-col gap-2">
+              <span class="text-sm text-primary-dark/50 font-medium"
+                >Email</span
+              >
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=varchasviz3d@gmail.com"
+                target="_blank"
+                class="hover:text-white transition-colors"
+                >varchasviz3d@gmail.com</a
+              >
+            </div>
+
+            <!-- Phone -->
+            <div class="flex flex-col gap-2">
+              <span class="text-sm text-primary-dark/50 font-medium"
+                >Phone</span
+              >
+              <a
+                href="tel:+919426513742"
+                class="text-lg font-medium hover:opacity-60 transition-opacity"
+                >(+91) 94265 13742</a
+              >
+            </div>
+
+            <!-- Working Hours -->
+            <div class="flex flex-col gap-2 md:col-span-2">
+              <span class="text-sm text-primary-dark/50 font-medium"
+                >Working Hours</span
+              >
+              <span class="text-lg font-medium"
+                >All Week 9:00 AM - 6:00 PM (IST)</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 2: FAQ
+         ============================================== -->
+    <section class="px-6 md:px-12 py-32 border-t border-black/10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12">
+        <!-- Left: Heading -->
+        <div>
+          <div class="flex items-center gap-3 mb-10 gs-reveal">
+            <div class="w-2 h-2 rounded-full bg-primary-dark"></div>
+            <span class="text-sm font-medium text-primary-dark/50">FAQ</span>
+          </div>
+          <h2
+            class="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.05] mb-8 gs-reveal"
+          >
+            Your Questions,<br />Answered
+          </h2>
+          <p
+            class="text-primary-dark/60 font-light max-w-sm leading-relaxed gs-reveal"
+          >
+            Find quick answers to the most common questions about our services
+            and process.
+          </p>
+        </div>
+
+        <!-- Right: Accordion -->
+        <div class="border-t border-black/10 mt-4 md:mt-16 gs-reveal">
+          <!-- Q1 -->
+          <div
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
+            onclick="this.classList.toggle('active')"
+          >
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
+              <h4>How long does a project take?</h4>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
+            </div>
+            <div class="faq-content">
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                Most projects are completed within 4 to 12 weeks, depending on
+                scope and requirements.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
+            onclick="this.classList.toggle('active')"
+          >
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
+              <h4>What services do you offer?</h4>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
+            </div>
+            <div class="faq-content">
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                We provide full-scale architectural design, interior design,
+                spatial planning, 3D visualization, and comprehensive project
+                management.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
+            onclick="this.classList.toggle('active')"
+          >
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
+              <h4>Do you handle both residential and commercial projects?</h4>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
+            </div>
+            <div class="faq-content">
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                Yes. Our portfolio spans high-end residential homes, boutique
+                commercial spaces, minimalist corporate offices, and hospitality
+                venues.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
+            onclick="this.classList.toggle('active')"
+          >
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
+              <h4>What is included in the design process?</h4>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
+            </div>
+            <div class="faq-content">
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                Our process includes initial discovery, concept layout, material
+                selection, 3D rendering approvals, and final execution
+                documentation.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
+            onclick="this.classList.toggle('active')"
+          >
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
+              <h4>How do we get started?</h4>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
+            </div>
+            <div class="faq-content">
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                Simply fill out the form above to schedule an initial
+                consultation where we will discuss your vision, budget, and
+                timeline.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 3: PREMIUM BRAND FOOTER (Dark Mode)
+          ============================================== -->
+    <div id="universal-footer-container"></div>
+    <!-- ==============================================
+         JAVASCRIPT DEPS & LOGIC
+         ============================================== -->
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: "vertical",
+          gestureDirection: "vertical",
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Integrate Lenis with GSAP
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // 2. Storytelling Reveal Animations (Fade Up)
+        const revealElements = gsap.utils.toArray(".gs-reveal");
+        revealElements.forEach((elem) => {
+          gsap.fromTo(
+            elem,
+            { autoAlpha: 0, y: 40 },
+            {
+              duration: 1,
+              autoAlpha: 1,
+              y: 0,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            },
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
