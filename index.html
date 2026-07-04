@@ -101,6 +101,20 @@
     </style>
   </head>
   <body class="selection:bg-primary-light selection:text-primary-dark">
+    <div
+      id="preloader"
+      class="fixed inset-0 z-[100] bg-primary-dark flex items-end justify-between p-6 md:p-12 text-white overflow-hidden pointer-events-none"
+    >
+      <div class="text-lg uppercase tracking-widest font-medium">
+        VarchasViz®
+      </div>
+      <div
+        id="counter"
+        class="text-6xl md:text-9xl font-black tracking-tighter leading-none"
+      >
+        0%
+      </div>
+    </div>
     <!-- ==============================================
          SECTION 1: HERO CONTAINER (300vh Scroll-Driven)
          ============================================== -->
@@ -689,8 +703,38 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", (event) => {
+      window.addEventListener("load", () => {
         gsap.registerPlugin(ScrollTrigger);
+
+        const counterElement = document.getElementById("counter");
+        let currentValue = { value: 0 };
+
+        const preloaderTl = gsap.timeline({
+          onComplete: () => {
+            // This runs after the preloader finishes!
+            // Trigger your homepage hero text animations here
+          },
+        });
+
+        preloaderTl
+          .to(currentValue, {
+            value: 100,
+            duration: 2, // Takes 2 seconds to count up
+            ease: "power2.inOut",
+            onUpdate: function () {
+              // Updates the HTML text on screen
+              counterElement.innerText = Math.round(currentValue.value) + "%";
+            },
+          })
+          .to(
+            "#preloader",
+            {
+              yPercent: -100, // Slides up out of the screen
+              duration: 1.2,
+              ease: "expo.inOut",
+            },
+            "+=0.2",
+          ); // Waits a tiny fraction o
 
         // 1. Init Lenis Smooth Scroll
         const lenis = new Lenis({

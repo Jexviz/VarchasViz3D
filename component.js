@@ -61,6 +61,7 @@ const universalFooter = `
       </footer>
     </div>
 `;
+// ... (Keep your universalHeader and universalFooter strings exactly as they are) ...
 
 // This function injects the HTML into your pages
 function loadComponents() {
@@ -83,14 +84,12 @@ function loadComponents() {
     menuToggle.addEventListener("click", () => {
       isMenuOpen = !isMenuOpen;
       if (isMenuOpen) {
-        // Open menu: Show overlay and turn text/lines white
         mobileMenu.classList.remove("opacity-0", "pointer-events-none");
         mobileMenu.classList.add("opacity-100", "pointer-events-auto");
         mainNav.classList.replace("text-primary-dark", "text-white");
         line1.classList.replace("bg-primary-dark", "bg-white");
         line2.classList.replace("bg-primary-dark", "bg-white");
       } else {
-        // Close menu: Hide overlay and revert text/lines back to dark
         mobileMenu.classList.remove("opacity-100", "pointer-events-auto");
         mobileMenu.classList.add("opacity-0", "pointer-events-none");
         mainNav.classList.replace("text-white", "text-primary-dark");
@@ -99,6 +98,14 @@ function loadComponents() {
       }
     });
   }
+
+  // CRITICAL FIX: Tell GSAP to recalculate the scroll triggers
+  // now that the heavy footer has been added to the DOM!
+  setTimeout(() => {
+    if (typeof ScrollTrigger !== "undefined") {
+      ScrollTrigger.refresh();
+    }
+  }, 300);
 }
 
 // Run the function when the page loads

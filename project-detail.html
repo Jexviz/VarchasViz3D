@@ -68,7 +68,7 @@
     <!-- ==============================================
          NAVIGATION (Dark text for Light Mode)
          ============================================== -->
-    <div id="universal-nav-container"></div>
+    <div id="universal-header-container"></div>
     <!-- ==============================================
          SECTION 1: PROJECT HERO HEADER
          ============================================== -->
@@ -250,7 +250,7 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", (event) => {
+      window.addEventListener("load", () => {
         gsap.registerPlugin(ScrollTrigger);
 
         // 1. Initialize Lenis Smooth Scroll
@@ -420,10 +420,6 @@
       }
 
       // Fire it!
-      loadSingleProject();
-      // Fire it!
-      loadSingleProject();
-      // Fire the function!
       loadSingleProject();
     </script>
   </body>
