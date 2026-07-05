@@ -18,6 +18,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        // 1. ADD THIS ENTIRE SAFELIST BLOCK
+        safelist: [
+          "md:col-span-4",
+          "md:col-span-5",
+          "md:col-span-6",
+          "md:col-span-7",
+          "md:col-span-8",
+          "md:col-span-12",
+          "md:row-span-1",
+          "md:row-span-2",
+        ],
         theme: {
           extend: {
             colors: {
@@ -98,7 +109,7 @@
           A compact living space designed with simplicity and efficiency
         </p>
         <a
-          href="#"
+          href="contact.html"
           class="inline-flex items-center gap-2 text-sm font-medium hover:opacity-50 transition-opacity whitespace-nowrap pb-1 border-b border-primary-dark"
         >
           Start a Project ↗
@@ -163,7 +174,7 @@
       <!-- Overview Text -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start gs-reveal">
         <div class="md:col-span-4 lg:col-span-3">
-          <span class="text-lg font-medium">Overview :</span>
+          <span id="dyn-heading-1" class="text-lg font-medium">Overview :</span>
         </div>
         <div class="md:col-span-8 lg:col-span-6 lg:col-start-7">
           <p
@@ -183,6 +194,7 @@
         class="w-full h-[70vh] overflow-hidden bg-gray-300 gs-image rounded-sm"
       >
         <img
+          id="dyn-image-1"
           src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=2000&auto=format&fit=crop"
           alt="Minimalist suspended sculpture"
           class="w-full h-full object-cover scale-105"
@@ -192,10 +204,13 @@
       <!-- Constraints Text -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start gs-reveal">
         <div class="md:col-span-4 lg:col-span-3">
-          <span class="text-lg font-medium">Constraints :</span>
+          <span id="dyn-heading-2" class="text-lg font-medium"
+            >Constraints :</span
+          >
         </div>
         <div class="md:col-span-8 lg:col-span-6 lg:col-start-7">
           <p
+            id="dyn-constraints"
             class="text-[1.35rem] md:text-2xl font-light leading-[1.5] text-primary-dark/80"
           >
             The limited area required multifunctional solutions and careful
@@ -210,6 +225,7 @@
         class="w-full h-[60vh] overflow-hidden bg-gray-300 gs-image rounded-sm"
       >
         <img
+          id="dyn-image-2"
           src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2500&auto=format&fit=crop"
           alt="Curved modern sofa"
           class="w-full h-full object-cover scale-105"
@@ -219,10 +235,11 @@
       <!-- Outcome Text -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start gs-reveal">
         <div class="md:col-span-4 lg:col-span-3">
-          <span class="text-lg font-medium">Outcome :</span>
+          <span id="dyn-heading-3" class="text-lg font-medium">Outcome :</span>
         </div>
         <div class="md:col-span-8 lg:col-span-6 lg:col-start-7">
           <p
+            id="dyn-outcome"
             class="text-[1.35rem] md:text-2xl font-light leading-[1.5] text-primary-dark/80"
           >
             The final space achieves a balance between efficiency and
@@ -232,6 +249,13 @@
           </p>
         </div>
       </div>
+    </section>
+
+    <section class="px-6 md:px-12 pb-32">
+      <div
+        id="dyn-gallery"
+        class="grid grid-cols-1 md:grid-cols-12 gap-4 auto-rows-[250px] md:auto-rows-[350px]"
+      ></div>
     </section>
 
     <!-- ==============================================
@@ -349,53 +373,123 @@
             duration: "8 Months",
             budget: "₹45L - ₹60L",
             description:
-              "The Core Apartment strips away unnecessary clutter, focusing on raw concrete textures and warm timber accents. Every corner was designed with a hyperrealistic aesthetic in mind, ensuring perfect lighting and minimal visual noise for a serene living experience.",
+              "The Core Apartment is a masterclass in modern essentialism...",
+            constraints:
+              "The primary challenge was introducing warmth into a heavily...",
+            outcome:
+              "A serene, highly atmospheric living space that champions...",
             cover_image_url:
               "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
+            image_1: "../images/Camera.001.jpg.jpeg",
+            image_2:
+              "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2500&auto=format&fit=crop",
+            // LAYOUT 1: The "Heroic Bento" (Like your inspiration image)
+            // One massive image, surrounded by smaller contextual ones.
+            gallery: [
+              {
+                url: "../images/untitled1.png",
+                gridClass: "md:col-span-8 md:row-span-2",
+              }, // Massive
+              {
+                url: "../images/1.jpg",
+                gridClass: "md:col-span-4 md:row-span-1",
+              }, // Top Right
+              {
+                url: "../images/8.jpg",
+                gridClass: "md:col-span-4 md:row-span-1",
+              }, // Bottom Right
+              {
+                url: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                gridClass: "md:col-span-12 md:row-span-1",
+              }, // Wide Bottom
+            ],
           },
           {
             id: 2,
             title: "Linear Workspace",
-            location:
-              "A corporate tech hub in Pimpri-Chinchwad focused on workflow.",
-            year: "2026",
-            service: "Commercial Interior",
-            duration: "4 Months",
-            budget: "₹80L - ₹1.2Cr",
-            description:
-              "Designed for a fast-paced software engineering firm, the Linear Workspace utilizes geometric lighting and smart glass partitions. The layout is optimized to maintain an open-plan feel for collaboration, while providing necessary acoustic privacy for backend teams focused on deep work.",
+            // ... (keep location, year, service, description, etc. as they were) ...
             cover_image_url:
               "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
+            image_1:
+              "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop",
+            image_2:
+              "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2500&auto=format&fit=crop",
+            // LAYOUT 2: The "Editorial Asymmetry"
+            // Alternating wide and narrow blocks for a modern magazine feel.
+            gallery: [
+              {
+                url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-5 md:row-span-2",
+              }, // Tall Left
+              {
+                url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-7 md:row-span-1",
+              }, // Wide Right Top
+              {
+                url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-7 md:row-span-1",
+              }, // Wide Right Bottom
+            ],
           },
           {
             id: 3,
             title: "Horizon Villa",
-            location:
-              "A luxury hillside retreat blending indoor and outdoor living.",
-            year: "2024",
-            service: "Architecture & Landscape",
-            duration: "18 Months",
-            budget: "₹3.5Cr - ₹5.0Cr",
-            description:
-              "Horizon Villa is a ground-up architectural build. The structure uses expansive floor-to-ceiling glazing to erase the boundaries between the minimalist interior and the surrounding natural landscape, offering a cinematic, high-resolution view of the valley.",
+            // ... (keep location, year, service, description, etc. as they were) ...
             cover_image_url:
-              "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1688653802629-5360086bf632?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image_1:
+              "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop",
+            image_2:
+              "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2500&auto=format&fit=crop",
+            // LAYOUT 3: The "Symmetrical Grid"
+            // Clean, perfect half-and-half splits for a highly structured look.
+            gallery: [
+              {
+                url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-6 md:row-span-1",
+              },
+              {
+                url: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-6 md:row-span-1",
+              },
+              {
+                url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-6 md:row-span-1",
+              },
+              {
+                url: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-6 md:row-span-1",
+              },
+            ],
           },
           {
             id: 4,
             title: "Studio Minimal",
-            location: "A compact, highly functional urban loft.",
-            year: "2023",
-            service: "Space Planning & Renovation",
-            duration: "10 Weeks",
-            budget: "₹12L - ₹18L",
-            description:
-              "A compact living space designed to maximize functionality through efficient planning and minimal detailing. The project features modular furniture and hidden storage compartments, proving that limited square footage does not mean compromising on high-end design.",
+            // ... (keep location, year, service, description, etc. as they were) ...
             cover_image_url:
               "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
+            image_1:
+              "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=2000&auto=format&fit=crop",
+            image_2:
+              "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2500&auto=format&fit=crop",
+            // LAYOUT 4: The "Cinematic Stack"
+            // Highly dramatic, mostly full-width panoramas.
+            gallery: [
+              {
+                url: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
+                gridClass: "md:col-span-12 md:row-span-2",
+              }, // Huge Panorama
+              {
+                url: "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=1000&auto=format&fit=crop",
+                gridClass: "md:col-span-4 md:row-span-1",
+              },
+              {
+                url: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1500&auto=format&fit=crop",
+                gridClass: "md:col-span-8 md:row-span-1",
+              },
+            ],
           },
         ];
-
         // Find the project that matches the ID in the URL
         const project = allProjects.find((p) => p.id === projectId);
 
@@ -404,20 +498,105 @@
           return;
         }
 
-        // Inject the data into the page
+        // Inject the text data into the page
         document.getElementById("dyn-title").innerText = project.title;
         document.getElementById("dyn-subtitle").innerText = project.location;
         document.getElementById("dyn-year").innerText = project.year;
         document.getElementById("dyn-service").innerText = project.service;
         document.getElementById("dyn-duration").innerText = project.duration;
         document.getElementById("dyn-budget").innerText = project.budget;
-        document.getElementById("dyn-description").innerText =
-          project.description;
 
+        if (project.description) {
+          document.getElementById("dyn-description").innerText =
+            project.description;
+        }
+        if (project.constraints) {
+          document.getElementById("dyn-constraints").innerText =
+            project.constraints;
+        }
+        if (project.outcome) {
+          document.getElementById("dyn-outcome").innerText = project.outcome;
+        }
+
+        // Inject the images into the page
         if (project.cover_image_url) {
           document.getElementById("dyn-cover").src = project.cover_image_url;
         }
-      }
+        if (project.image_1) {
+          document.getElementById("dyn-image-1").src = project.image_1;
+        }
+        if (project.image_2) {
+          document.getElementById("dyn-image-2").src = project.image_2;
+        }
+        // 1. Find the empty gallery container in your HTML
+        const galleryContainer = document.getElementById("dyn-gallery");
+        const gallerySection = galleryContainer.parentElement;
+
+        if (project.gallery && project.gallery.length > 0) {
+          let galleryHTML = "";
+
+          // 2. Build the HTML (Added min-height to prevent zero-height collapse!)
+          project.gallery.forEach((item) => {
+            galleryHTML += `
+              <div class="${item.gridClass} min-h-[250px] md:min-h-[350px] overflow-hidden rounded-sm bg-gray-300 gs-image gs-reveal">
+                <img
+                  src="${item.url}"
+                  alt="Gallery View"
+                  class="w-full h-full object-cover scale-105"
+                />
+              </div>
+            `;
+          });
+
+          // 3. Push the HTML into the page
+          galleryContainer.innerHTML = galleryHTML;
+          gallerySection.style.display = "block";
+
+          // 4. CRITICAL FIX: Re-initialize GSAP so the images actually animate in!
+          setTimeout(() => {
+            // Re-bind the fade-up animations
+            const newReveals = galleryContainer.querySelectorAll(".gs-reveal");
+            newReveals.forEach((elem) => {
+              gsap.fromTo(
+                elem,
+                { autoAlpha: 0, y: 40 },
+                {
+                  duration: 1,
+                  autoAlpha: 1,
+                  y: 0,
+                  ease: "power3.out",
+                  scrollTrigger: {
+                    trigger: elem,
+                    start: "top 90%", // Triggers reliably as you scroll down
+                    toggleActions: "play none none reverse",
+                  },
+                },
+              );
+            });
+
+            // Re-bind the image parallax animations
+            const newImages =
+              galleryContainer.querySelectorAll(".gs-image img");
+            newImages.forEach((img) => {
+              gsap.to(img, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: img.parentElement,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: true,
+                },
+              });
+            });
+
+            // Recalculate the entire page height so the scrolling doesn't break
+            ScrollTrigger.refresh();
+          }, 150);
+        } else {
+          gallerySection.style.display = "none";
+        }
+      } // <-- End of loadSingleProject function
 
       // Fire it!
       loadSingleProject();
