@@ -497,111 +497,98 @@
     <!-- ==============================================
          SECTION 4: FAQ & PARALLAX BANNER (Light to Dark)
          ============================================== -->
-    <section
-      id="faq-section"
-      class="bg-primary-light text-primary-dark pt-32 pb-0 relative z-20"
-    >
-      <div class="px-6 md:px-12 flex flex-col md:flex-row gap-16 pb-32">
-        <!-- Left Header -->
-        <div class="w-full md:w-1/3">
-          <div class="flex items-center gap-2 mb-4">
+    <section class="px-6 md:px-12 py-32 border-t border-black/10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12">
+        <!-- Left: Heading -->
+        <div>
+          <div class="flex items-center gap-3 mb-10 gs-reveal">
             <div class="w-2 h-2 rounded-full bg-primary-dark"></div>
-            <span
-              class="uppercase tracking-widest text-xs font-bold text-primary-dark/60"
-              >FAQ</span
-            >
+            <span class="text-sm font-medium text-primary-dark/50">FAQ</span>
           </div>
-          <h2 class="text-4xl font-bold tracking-tighter mb-4">
-            Your Questions, Answered
+          <h2
+            class="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.05] mb-8 gs-reveal"
+          >
+            Your Questions,<br />Answered
           </h2>
-          <p class="text-sm text-primary-dark/70 max-w-xs">
-            Everything you need to know about our process, timelines, and
-            architectural services.
+          <p
+            class="text-primary-dark/60 font-light max-w-sm leading-relaxed gs-reveal"
+          >
+            Everything you need to know about our 3D visualization services,
+            workflow, and project delivery.
           </p>
         </div>
 
-        <!-- Right Accordion -->
-        <div class="w-full md:w-2/3 border-t border-accent/20">
+        <!-- Right: Accordion -->
+        <div class="border-t border-black/10 mt-4 md:mt-16 gs-reveal">
           <!-- Q1 -->
           <div
-            class="faq-item border-b border-accent/20 cursor-pointer py-6"
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
             onclick="this.classList.toggle('active')"
           >
-            <div class="flex justify-between items-center text-xl font-medium">
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
               <h4>How long does a project take?</h4>
-              <span class="faq-icon text-2xl font-light">+</span>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
             </div>
             <div class="faq-content">
-              <div class="pt-4 text-primary-dark/70 font-light leading-relaxed">
-                Project timelines vary significantly based on scope and
-                complexity. A standard residential interior remodel might take
-                3-5 months, while ground-up architectural builds can take 12-24
-                months from concept to final execution.
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                Most still render projects are delivered within 3–7 business
+                days, depending on the project's complexity, scope, and number
+                of revisions. Walkthrough animations and larger projects
+                typically require additional time.
               </div>
             </div>
           </div>
 
           <!-- Q2 -->
           <div
-            class="faq-item border-b border-accent/20 cursor-pointer py-6"
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
             onclick="this.classList.toggle('active')"
           >
-            <div class="flex justify-between items-center text-xl font-medium">
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
               <h4>What services do you offer?</h4>
-              <span class="faq-icon text-2xl font-light">+</span>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
             </div>
             <div class="faq-content">
-              <div class="pt-4 text-primary-dark/70 font-light leading-relaxed">
-                We provide full-scale architectural design, interior design,
-                spatial planning, 3D visualization, and project management to
-                ensure the integrity of the design is maintained through
-                construction.
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                We specialize in: Interior Visualization <br />
+                Exterior Visualization <br />
+                Architectural CGI <br />
+                3D Walkthrough Animations
               </div>
             </div>
           </div>
 
           <!-- Q3 -->
+
+          <!-- Q4 -->
           <div
-            class="faq-item border-b border-accent/20 cursor-pointer py-6"
+            class="faq-item border-b border-black/10 cursor-pointer py-8"
             onclick="this.classList.toggle('active')"
           >
-            <div class="flex justify-between items-center text-xl font-medium">
-              <h4>Do you handle both residential and commercial projects?</h4>
-              <span class="faq-icon text-2xl font-light">+</span>
+            <div
+              class="flex justify-between items-center text-xl md:text-2xl font-medium"
+            >
+              <h4>What is included in the design process?</h4>
+              <span class="faq-icon text-3xl font-light leading-none">+</span>
             </div>
             <div class="faq-content">
-              <div class="pt-4 text-primary-dark/70 font-light leading-relaxed">
-                Yes. Our portfolio spans high-end residential homes, boutique
-                commercial spaces, minimalist corporate offices, and hospitality
-                venues that require a refined, intentional approach.
+              <div
+                class="pt-4 text-primary-dark/60 font-light leading-relaxed max-w-xl"
+              >
+                Our process includes initial discovery, concept layout, material
+                selection, 3D rendering approvals, and final execution
+                documentation.
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Parallax Banner -->
-      <div
-        class="relative h-[80vh] w-full overflow-hidden flex items-center justify-center"
-      >
-        <div
-          id="parallax-img"
-          class="absolute inset-0 w-full h-[120%] -top-[10%] z-0"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=3200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Brutalist Facade"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-black/40"></div>
-        </div>
-        <div class="relative z-10 text-center px-6">
-          <h2
-            class="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase mix-blend-overlay"
-          >
-            Ready to Elevate <br />
-            Your Space?
-          </h2>
         </div>
       </div>
     </section>
