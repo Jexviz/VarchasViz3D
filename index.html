@@ -14,29 +14,7 @@
     />
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                dark: "#0D0D0D",
-                light: "#F5F5F5",
-              },
-              accent: "#262626",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
-            transitionTimingFunction: {
-              expo: "cubic-bezier(0.16, 1, 0.3, 1)",
-            },
-          },
-        },
-      };
-    </script>
-
+    <link href="./dist/output.css" rel="stylesheet" />
     <!-- Custom Styles -->
     <style>
       body {
@@ -694,36 +672,38 @@
         gsap.registerPlugin(ScrollTrigger);
 
         const counterElement = document.getElementById("counter");
-        let currentValue = { value: 0 };
 
-        const preloaderTl = gsap.timeline({
-          onComplete: () => {
-            // This runs after the preloader finishes!
-            // Trigger your homepage hero text animations here
-          },
-        });
+        // Array of the massive images you need to load for the hero section
+        const heroImages = [
+          "images/Picsart_26-06-30_22-19-45-129 (1).jpg",
+          "images/Picsart_26-06-30_22-18-41-479.png",
+        ];
 
-        preloaderTl
-          .to(currentValue, {
-            value: 100,
-            duration: 2, // Takes 2 seconds to count up
-            ease: "power2.inOut",
-            onUpdate: function () {
-              // Updates the HTML text on screen
-              counterElement.innerText = Math.round(currentValue.value) + "%";
-            },
-          })
-          .to(
-            "#preloader",
-            {
-              yPercent: -100, // Slides up out of the screen
+        let loadedCount = 0;
+
+        function updateProgress() {
+          loadedCount++;
+          const progress = Math.round((loadedCount / heroImages.length) * 100);
+          counterElement.innerText = progress + "%";
+
+          // When all hero images are downloaded, slide the preloader up
+          if (loadedCount === heroImages.length) {
+            gsap.to("#preloader", {
+              yPercent: -100,
               duration: 1.2,
               ease: "expo.inOut",
-            },
-            "+=0.2",
-          ); // Waits a tiny fraction o
+              delay: 0.2, // Small buffer for visual smoothness
+            });
+          }
+        }
 
-        // 1. Init Lenis Smooth Scroll
+        // Trigger real loading of the images in the background
+        heroImages.forEach((src) => {
+          const img = new Image();
+          img.onload = updateProgress;
+          img.onerror = updateProgress; // Proceed even if an image fails to load
+          img.src = src;
+        }); // 1. Init Lenis Smooth Scroll
         const lenis = new Lenis({
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -752,18 +732,20 @@
         // ----------------------------------------------------
         // UI Text Initial Positioning Setup
         // ----------------------------------------------------
+        // 1. Setup: Use transforms instead of layout properties
         gsap.set("#varchas-brand", {
-          top: "45%",
-          left: "50%",
           xPercent: -50,
           yPercent: -50,
+          x: "50vw", // Use viewport units for transforms
+          y: "45vh",
+          transformOrigin: "center center",
         });
 
         gsap.set("#varchas-sub", {
-          top: "60%",
-          left: "50%",
           xPercent: -50,
           yPercent: -50,
+          x: "50vw",
+          y: "60vh",
         });
 
         // 2. Hero Transformation Sequence (Scroll-driven)
@@ -772,54 +754,41 @@
             trigger: "#hero-track",
             start: "top top",
             end: "bottom bottom",
-            scrub: 1.5, // Keeps it trailing smoothly
+            scrub: 1.5,
           },
         });
 
-        // Sequence: Text Animation ➔ 3D Clay ➔ Final Render
         heroTl
-          // 1. PHASE ONE: Text Animation
-          // VARCHAS text flies to bottom right corner and gets massive
+          // PHASE ONE: Animate scale and translation, NOT fontSize, top, or left
           .to(
             "#varchas-brand",
             {
-              top: "100%",
-              left: "100%",
-              xPercent: -100,
-              yPercent: -100,
-              fontSize: "15vw",
+              x: "100vw",
+              y: "100vh",
+              scale: 2.5, // Replaces fontSize animation
               duration: 2,
               ease: "sine.inOut",
             },
             0,
           )
-
-          // Sub-text fades out and flies up
           .to(
             "#varchas-sub",
             {
-              yPercent: -150,
+              y: "10vh", // Replaces top/yPercent combination
               opacity: 0,
               duration: 1.5,
               ease: "sine.inOut",
             },
             0,
           )
-
-          // 2. PHASE TWO: Fade to 3D Clay
-          // (Starts slightly after text begins animating)
+          // PHASE TWO & THREE: Fade to 3D Clay & Render (Opacity is hardware accelerated, this is fine)
           .to("#layer-clay", { opacity: 1, duration: 2, ease: "sine.inOut" }, 1)
-
-          // 3. PHASE THREE: Fade to Final Render
           .to(
             "#layer-render",
             { opacity: 1, duration: 2, ease: "sine.inOut" },
             3,
           )
-
-          // 4. Final Hold before next section
           .to({}, { duration: 1 });
-
         // 3. Parallax Banner Animation
         gsap.to("#parallax-img", {
           yPercent: 20,

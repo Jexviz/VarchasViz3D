@@ -15,36 +15,7 @@
 
     <!-- Tailwind CSS -->
     <script src="component.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        // 1. ADD THIS ENTIRE SAFELIST BLOCK
-        safelist: [
-          "md:col-span-4",
-          "md:col-span-5",
-          "md:col-span-6",
-          "md:col-span-7",
-          "md:col-span-8",
-          "md:col-span-12",
-          "md:row-span-1",
-          "md:row-span-2",
-        ],
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                dark: "#0D0D0D",
-                light: "#F4F4F4",
-              },
-              accent: "#262626",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
+    <link href="./dist/output.css" rel="stylesheet" />
 
     <!-- Custom Styles -->
     <style>
@@ -355,12 +326,15 @@
       // ==============================================
       function loadSingleProject() {
         const urlParams = new URLSearchParams(window.location.search);
-        const projectId = parseInt(urlParams.get("id"));
+        const projectIdStr = urlParams.get("id");
 
-        if (!projectId) {
-          console.log("No project ID found in URL.");
+        // ERROR BOUNDARY 1: No ID provided in the URL
+        if (!projectIdStr) {
+          renderErrorState("No project specified. Returning to portfolio...");
           return;
         }
+
+        const projectId = parseInt(projectIdStr);
 
         // STATIC DATA: Completely unique details for every project
         const allProjects = [
@@ -493,11 +467,31 @@
         // Find the project that matches the ID in the URL
         const project = allProjects.find((p) => p.id === projectId);
 
+        // ERROR BOUNDARY 2: The ID exists in URL, but not in our database
         if (!project) {
-          document.getElementById("dyn-title").innerText = "Project Not Found";
+          renderErrorState("Project not found or has been removed.");
           return;
         }
 
+      } // <-- End of loadSingleProject function
+
+      // --- NEW ERROR UI HANDLER ---
+      function renderErrorState(message) {
+        document.getElementById("dyn-title").innerText = "404";
+        document.getElementById("dyn-subtitle").innerText = message;
+
+        // Hide the image and gallery containers so they don't show empty gray boxes
+        const coverImg = document.getElementById("dyn-cover");
+        if(coverImg) coverImg.parentElement.style.display = 'none';
+
+        const gallery = document.getElementById("dyn-gallery");
+        if(gallery) gallery.parentElement.style.display = 'none';
+
+        // Auto-redirect the user back to the projects page after 3 seconds
+        setTimeout(() => {
+          window.location.href = "projects.html";
+        }, 3000);
+      }
         // Inject the text data into the page
         document.getElementById("dyn-title").innerText = project.title;
         document.getElementById("dyn-subtitle").innerText = project.location;
