@@ -733,22 +733,22 @@
         // UI Text Initial Positioning Setup
         // ----------------------------------------------------
         // 1. Setup: Use transforms instead of layout properties
+        // 1. Setup: Restored your original positioning
         gsap.set("#varchas-brand", {
+          top: "45%",
+          left: "50%",
           xPercent: -50,
           yPercent: -50,
-          x: "50vw", // Use viewport units for transforms
-          y: "45vh",
-          transformOrigin: "center center",
         });
 
         gsap.set("#varchas-sub", {
+          top: "60%",
+          left: "50%",
           xPercent: -50,
           yPercent: -50,
-          x: "50vw",
-          y: "60vh",
         });
 
-        // 2. Hero Transformation Sequence (Scroll-driven)
+        // 2. Hero Transformation Sequence
         const heroTl = gsap.timeline({
           scrollTrigger: {
             trigger: "#hero-track",
@@ -759,13 +759,15 @@
         });
 
         heroTl
-          // PHASE ONE: Animate scale and translation, NOT fontSize, top, or left
+          // Restored your original text animation!
           .to(
             "#varchas-brand",
             {
-              x: "100vw",
-              y: "100vh",
-              scale: 2.5, // Replaces fontSize animation
+              top: "100%",
+              left: "100%",
+              xPercent: -100,
+              yPercent: -100,
+              fontSize: "15vw",
               duration: 2,
               ease: "sine.inOut",
             },
@@ -774,14 +776,14 @@
           .to(
             "#varchas-sub",
             {
-              y: "10vh", // Replaces top/yPercent combination
+              yPercent: -150,
               opacity: 0,
               duration: 1.5,
               ease: "sine.inOut",
             },
             0,
           )
-          // PHASE TWO & THREE: Fade to 3D Clay & Render (Opacity is hardware accelerated, this is fine)
+          // The rest stays optimized
           .to("#layer-clay", { opacity: 1, duration: 2, ease: "sine.inOut" }, 1)
           .to(
             "#layer-render",
@@ -789,6 +791,7 @@
             3,
           )
           .to({}, { duration: 1 });
+
         // 3. Parallax Banner Animation
         gsap.to("#parallax-img", {
           yPercent: 20,

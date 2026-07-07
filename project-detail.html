@@ -234,101 +234,58 @@
          ============================================== -->
     <div id="universal-footer-container"></div>
 
-    <!-- ==============================================
-         JAVASCRIPT DEPS & LOGIC
-         ============================================== -->
-    <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <!-- Lenis Smooth Scrolling -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <script src="app.js"></script>
 
     <script>
       window.addEventListener("load", () => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // 1. Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: "vertical",
-          gestureDirection: "vertical",
-          smooth: true,
-          mouseMultiplier: 1,
-          smoothTouch: false,
-          touchMultiplier: 2,
-          infinite: false,
-        });
-
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Integrate Lenis with GSAP
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-          lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0, 0);
-
-        // 2. Storytelling Reveal Animations (Fade Up)
-        const revealElements = gsap.utils.toArray(".gs-reveal");
-        revealElements.forEach((elem) => {
-          gsap.fromTo(
-            elem,
-            { autoAlpha: 0, y: 40 },
-            {
-              duration: 1,
-              autoAlpha: 1,
-              y: 0,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: elem,
-                start: "top 85%", // Triggers when the top of the element hits 85% of the viewport height
-                toggleActions: "play none none reverse",
-              },
-            },
-          );
-        });
-
-        // 3. Subtle Parallax for Images
-        const images = gsap.utils.toArray(".gs-image img");
-        images.forEach((img) => {
-          gsap.to(img, {
-            yPercent: 15,
+        // 1. Page-Specific Parallax Animation for the Footer CTA
+        if (
+          typeof gsap !== "undefined" &&
+          document.getElementById("parallax-cta")
+        ) {
+          gsap.to("#parallax-cta", {
+            yPercent: 20,
             ease: "none",
             scrollTrigger: {
-              trigger: img.parentElement,
+              trigger: "#parallax-cta",
               start: "top bottom",
               end: "bottom top",
               scrub: true,
             },
           });
-        });
-
-        // 4. Parallax Banner Animation
-        gsap.to("#parallax-cta", {
-          yPercent: 20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#parallax-cta",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+        }
       });
+
+      // --- NEW ERROR UI HANDLER ---
+      function renderErrorState(message) {
+        document.getElementById("dyn-title").innerText = "404";
+        document.getElementById("dyn-subtitle").innerText = message;
+
+        // Hide the image and gallery containers
+        const coverImg = document.getElementById("dyn-cover");
+        if (coverImg) coverImg.parentElement.style.display = "none";
+
+        const gallery = document.getElementById("dyn-gallery");
+        if (gallery) gallery.parentElement.style.display = "none";
+
+        // Auto-redirect
+        setTimeout(() => {
+          window.location.href = "projects.html";
+        }, 3000);
+      }
+
       // ==============================================
-      // 5. FETCH SINGLE PROJECT DATA
+      // 2. FETCH SINGLE PROJECT DATA
       // ==============================================
       function loadSingleProject() {
         const urlParams = new URLSearchParams(window.location.search);
         const projectIdStr = urlParams.get("id");
 
-        // ERROR BOUNDARY 1: No ID provided in the URL
         if (!projectIdStr) {
           renderErrorState("No project specified. Returning to portfolio...");
           return;
@@ -336,7 +293,7 @@
 
         const projectId = parseInt(projectIdStr);
 
-        // STATIC DATA: Completely unique details for every project
+        // STATIC DATA
         const allProjects = [
           {
             id: 1,
@@ -354,69 +311,72 @@
               "A serene, highly atmospheric living space that champions...",
             cover_image_url:
               "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
-            image_1: "../images/Camera.001.jpg.jpeg",
-            image_2:
+            image_1:
               "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2500&auto=format&fit=crop",
-            // LAYOUT 1: The "Heroic Bento" (Like your inspiration image)
-            // One massive image, surrounded by smaller contextual ones.
+            image_2:
+              "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2600&auto=format&fit=crop",
             gallery: [
               {
-                url: "../images/untitled1.png",
+                url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
                 gridClass: "md:col-span-8 md:row-span-2",
-              }, // Massive
+              },
               {
-                url: "../images/1.jpg",
+                url: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2500&auto=format&fit=crop",
                 gridClass: "md:col-span-4 md:row-span-1",
-              }, // Top Right
+              },
               {
-                url: "../images/8.jpg",
+                url: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2600&auto=format&fit=crop",
                 gridClass: "md:col-span-4 md:row-span-1",
-              }, // Bottom Right
+              },
               {
-                url: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2500&auto=format&fit=crop",
                 gridClass: "md:col-span-12 md:row-span-1",
-              }, // Wide Bottom
+              },
             ],
           },
           {
             id: 2,
             title: "Linear Workspace",
-            // ... (keep location, year, service, description, etc. as they were) ...
+            location: "A modern workspace designed for deep focus.",
+            year: "2026",
+            service: "Commercial Design",
+            duration: "4 Months",
+            budget: "₹20L - ₹35L",
             cover_image_url:
               "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
             image_1:
               "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop",
             image_2:
               "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2500&auto=format&fit=crop",
-            // LAYOUT 2: The "Editorial Asymmetry"
-            // Alternating wide and narrow blocks for a modern magazine feel.
             gallery: [
               {
                 url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1500&auto=format&fit=crop",
                 gridClass: "md:col-span-5 md:row-span-2",
-              }, // Tall Left
+              },
               {
                 url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1500&auto=format&fit=crop",
                 gridClass: "md:col-span-7 md:row-span-1",
-              }, // Wide Right Top
+              },
               {
                 url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
                 gridClass: "md:col-span-7 md:row-span-1",
-              }, // Wide Right Bottom
+              },
             ],
           },
           {
             id: 3,
             title: "Horizon Villa",
-            // ... (keep location, year, service, description, etc. as they were) ...
+            location: "Expansive luxury villa with landscape integration.",
+            year: "2024",
+            service: "Exterior Visualization",
+            duration: "12 Months",
+            budget: "₹1.2Cr+",
             cover_image_url:
-              "https://images.unsplash.com/photo-1688653802629-5360086bf632?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              "https://images.unsplash.com/photo-1688653802629-5360086bf632?q=80&w=2532&auto=format&fit=crop",
             image_1:
               "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop",
             image_2:
               "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2500&auto=format&fit=crop",
-            // LAYOUT 3: The "Symmetrical Grid"
-            // Clean, perfect half-and-half splits for a highly structured look.
             gallery: [
               {
                 url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1500&auto=format&fit=crop",
@@ -439,20 +399,22 @@
           {
             id: 4,
             title: "Studio Minimal",
-            // ... (keep location, year, service, description, etc. as they were) ...
+            location: "A compact living space designed with simplicity.",
+            year: "2023",
+            service: "Space Planning",
+            duration: "3 Months",
+            budget: "₹15L - ₹20L",
             cover_image_url:
               "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
             image_1:
               "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=2000&auto=format&fit=crop",
             image_2:
               "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2500&auto=format&fit=crop",
-            // LAYOUT 4: The "Cinematic Stack"
-            // Highly dramatic, mostly full-width panoramas.
             gallery: [
               {
                 url: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
                 gridClass: "md:col-span-12 md:row-span-2",
-              }, // Huge Panorama
+              },
               {
                 url: "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=1000&auto=format&fit=crop",
                 gridClass: "md:col-span-4 md:row-span-1",
@@ -464,136 +426,71 @@
             ],
           },
         ];
-        // Find the project that matches the ID in the URL
+
         const project = allProjects.find((p) => p.id === projectId);
 
-        // ERROR BOUNDARY 2: The ID exists in URL, but not in our database
         if (!project) {
           renderErrorState("Project not found or has been removed.");
           return;
         }
 
-      } // <-- End of loadSingleProject function
+        // --- 3. INJECT DATA INTO HTML ---
+        document.getElementById("dyn-title").innerText = project.title || "";
+        document.getElementById("dyn-subtitle").innerText =
+          project.location || "";
+        document.getElementById("dyn-year").innerText = project.year || "";
+        document.getElementById("dyn-service").innerText =
+          project.service || "";
+        document.getElementById("dyn-duration").innerText =
+          project.duration || "";
+        document.getElementById("dyn-budget").innerText = project.budget || "";
 
-      // --- NEW ERROR UI HANDLER ---
-      function renderErrorState(message) {
-        document.getElementById("dyn-title").innerText = "404";
-        document.getElementById("dyn-subtitle").innerText = message;
-
-        // Hide the image and gallery containers so they don't show empty gray boxes
-        const coverImg = document.getElementById("dyn-cover");
-        if(coverImg) coverImg.parentElement.style.display = 'none';
-
-        const gallery = document.getElementById("dyn-gallery");
-        if(gallery) gallery.parentElement.style.display = 'none';
-
-        // Auto-redirect the user back to the projects page after 3 seconds
-        setTimeout(() => {
-          window.location.href = "projects.html";
-        }, 3000);
-      }
-        // Inject the text data into the page
-        document.getElementById("dyn-title").innerText = project.title;
-        document.getElementById("dyn-subtitle").innerText = project.location;
-        document.getElementById("dyn-year").innerText = project.year;
-        document.getElementById("dyn-service").innerText = project.service;
-        document.getElementById("dyn-duration").innerText = project.duration;
-        document.getElementById("dyn-budget").innerText = project.budget;
-
-        if (project.description) {
+        if (project.description)
           document.getElementById("dyn-description").innerText =
             project.description;
-        }
-        if (project.constraints) {
+        if (project.constraints)
           document.getElementById("dyn-constraints").innerText =
             project.constraints;
-        }
-        if (project.outcome) {
+        if (project.outcome)
           document.getElementById("dyn-outcome").innerText = project.outcome;
-        }
 
-        // Inject the images into the page
-        if (project.cover_image_url) {
+        if (project.cover_image_url)
           document.getElementById("dyn-cover").src = project.cover_image_url;
-        }
-        if (project.image_1) {
+        if (project.image_1)
           document.getElementById("dyn-image-1").src = project.image_1;
-        }
-        if (project.image_2) {
+        if (project.image_2)
           document.getElementById("dyn-image-2").src = project.image_2;
-        }
-        // 1. Find the empty gallery container in your HTML
+
+        // --- 4. INJECT GALLERY ---
         const galleryContainer = document.getElementById("dyn-gallery");
         const gallerySection = galleryContainer.parentElement;
 
         if (project.gallery && project.gallery.length > 0) {
           let galleryHTML = "";
 
-          // 2. Build the HTML (Added min-height to prevent zero-height collapse!)
           project.gallery.forEach((item) => {
             galleryHTML += `
-              <div class="${item.gridClass} min-h-[250px] md:min-h-[350px] overflow-hidden rounded-sm bg-gray-300 gs-image gs-reveal">
-                <img
-                  src="${item.url}"
-                  alt="Gallery View"
-                  class="w-full h-full object-cover scale-105"
-                />
-              </div>
-            `;
+                <div class="${item.gridClass} min-h-[250px] md:min-h-[350px] overflow-hidden rounded-sm bg-gray-300 gs-image gs-reveal">
+                  <img src="${item.url}" alt="Gallery View" class="w-full h-full object-cover scale-105" />
+                </div>
+              `;
           });
 
-          // 3. Push the HTML into the page
           galleryContainer.innerHTML = galleryHTML;
           gallerySection.style.display = "block";
 
-          // 4. CRITICAL FIX: Re-initialize GSAP so the images actually animate in!
+          // Trigger animations
           setTimeout(() => {
-            // Re-bind the fade-up animations
-            const newReveals = galleryContainer.querySelectorAll(".gs-reveal");
-            newReveals.forEach((elem) => {
-              gsap.fromTo(
-                elem,
-                { autoAlpha: 0, y: 40 },
-                {
-                  duration: 1,
-                  autoAlpha: 1,
-                  y: 0,
-                  ease: "power3.out",
-                  scrollTrigger: {
-                    trigger: elem,
-                    start: "top 90%", // Triggers reliably as you scroll down
-                    toggleActions: "play none none reverse",
-                  },
-                },
-              );
-            });
-
-            // Re-bind the image parallax animations
-            const newImages =
-              galleryContainer.querySelectorAll(".gs-image img");
-            newImages.forEach((img) => {
-              gsap.to(img, {
-                yPercent: 15,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: img.parentElement,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              });
-            });
-
-            // Recalculate the entire page height so the scrolling doesn't break
-            ScrollTrigger.refresh();
+            if (typeof initGlobalAnimations === "function")
+              initGlobalAnimations();
+            if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
           }, 150);
         } else {
           gallerySection.style.display = "none";
         }
-      } // <-- End of loadSingleProject function
+      }
 
-      // Fire it!
-      loadSingleProject();
+      window.addEventListener("DOMContentLoaded", loadSingleProject);
     </script>
   </body>
 </html>

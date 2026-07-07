@@ -122,140 +122,70 @@
 
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
+    <script src="app.js"></script>
     <script>
-      window.addEventListener("load", () => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // 1. Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: "vertical",
-          gestureDirection: "vertical",
-          smooth: true,
-          mouseMultiplier: 1,
-          smoothTouch: false,
-          touchMultiplier: 2,
-          infinite: false,
-        });
-
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Integrate Lenis with GSAP
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-          lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0, 0);
-
-        // 2. Storytelling Reveal Animations (Fade Up)
-        const revealElements = gsap.utils.toArray(".gs-reveal");
-        revealElements.forEach((elem) => {
-          gsap.fromTo(
-            elem,
-            { autoAlpha: 0, y: 50 },
-            {
-              duration: 1.2,
-              autoAlpha: 1,
-              y: 0,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: elem,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-            },
-          );
-        });
-
-        // 3. Subtle Parallax for Images inside the Grid
-        const images = gsap.utils.toArray(".gs-image img");
-        images.forEach((img) => {
-          gsap.to(img, {
-            yPercent: 15,
-            ease: "none",
-            scrollTrigger: {
-              trigger: img.parentElement,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          });
-        });
-
-        // 4. Parallax CTA Banner Animation
-        gsap.to("#parallax-cta", {
-          yPercent: 20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#parallax-cta",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+      function loadProjects() {
+        // STATIC DATA: The projects to display
+        const projects = [
+          {
+            id: 1,
+            title: "Core Apartment",
+            year: "2025",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
           },
-        });
+          {
+            id: 2,
+            title: "Linear Workspace",
+            year: "2026",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
+          },
+          {
+            id: 3,
+            title: "Horizon Villa",
+            year: "2024",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop",
+          },
+          {
+            id: 4,
+            title: "Studio Minimal",
+            year: "2023",
+            cover_image_url:
+              "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
+          },
+        ];
 
-        function loadProjects() {
-          // STATIC DATA: Completely local, no backend required!
-          const projects = [
-            {
-              id: 1,
-              title: "Core Apartment",
-              year: "2025",
-              cover_image_url:
-                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
-            },
-            {
-              id: 2,
-              title: "Linear Workspace",
-              year: "2026",
-              cover_image_url:
-                "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
-            },
-            {
-              id: 3,
-              title: "Horizon Villa",
-              year: "2024",
-              cover_image_url:
-                "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop",
-            },
-            {
-              id: 4,
-              title: "Studio Minimal",
-              year: "2023",
-              cover_image_url:
-                "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
-            },
-          ];
-          const grid = document.getElementById("dynamic-projects-grid");
-          grid.innerHTML = "";
+        const grid = document.getElementById("dynamic-projects-grid");
+        if (!grid) return; // Failsafe
 
-          const layouts = [
-            {
-              wrapper: "md:col-span-12",
-              imgClass: "w-full h-[50vh] md:h-[80vh]",
-            },
-            {
-              wrapper: "md:col-span-5",
-              imgClass: "w-full aspect-[4/5] md:aspect-[3/4]",
-            },
-            {
-              wrapper: "md:col-span-7 md:mt-40",
-              imgClass: "w-full aspect-video md:aspect-[4/3]",
-            },
-            {
-              wrapper: "md:col-span-10 md:col-start-2",
-              imgClass: "w-full h-[50vh] md:h-[70vh]",
-            },
-          ];
+        grid.innerHTML = "";
 
-          projects.forEach((project, index) => {
-            const style = layouts[index % layouts.length];
-            const cardHTML = `
+        // The custom staggered layout styles
+        const layouts = [
+          {
+            wrapper: "md:col-span-12",
+            imgClass: "w-full h-[50vh] md:h-[80vh]",
+          },
+          {
+            wrapper: "md:col-span-5",
+            imgClass: "w-full aspect-[4/5] md:aspect-[3/4]",
+          },
+          {
+            wrapper: "md:col-span-7 md:mt-40",
+            imgClass: "w-full aspect-video md:aspect-[4/3]",
+          },
+          {
+            wrapper: "md:col-span-10 md:col-start-2",
+            imgClass: "w-full h-[50vh] md:h-[70vh]",
+          },
+        ];
+
+        // Loop through the data and build the HTML cards
+        projects.forEach((project, index) => {
+          const style = layouts[index % layouts.length];
+          const cardHTML = `
             <div class="${style.wrapper} gs-reveal">
               <a href="project-detail.html?id=${project.id}" class="group block cursor-pointer">
                 <div class="${style.imgClass} overflow-hidden bg-gray-200 rounded-sm gs-image">
@@ -273,56 +203,23 @@
                 </div>
               </a>
             </div>
-            `;
-            grid.innerHTML += cardHTML;
-          });
+          `;
+          grid.innerHTML += cardHTML;
+        });
 
-          // Re-initialize GSAP for the newly injected elements
-          setTimeout(() => {
-            const newRevealElements = gsap.utils.toArray(".gs-reveal");
-            newRevealElements.forEach((elem) => {
-              if (!elem.classList.contains("anim-initialized")) {
-                elem.classList.add("anim-initialized");
-                gsap.fromTo(
-                  elem,
-                  { autoAlpha: 0, y: 50 },
-                  {
-                    duration: 1.2,
-                    autoAlpha: 1,
-                    y: 0,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                      trigger: elem,
-                      start: "top 85%",
-                      toggleActions: "play none none reverse",
-                    },
-                  },
-                );
-              }
-            });
-            const newImages = gsap.utils.toArray(".gs-image img");
-            newImages.forEach((img) => {
-              if (!img.classList.contains("anim-initialized")) {
-                img.classList.add("anim-initialized");
-                gsap.to(img, {
-                  yPercent: 15,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: img.parentElement,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true,
-                  },
-                });
-              }
-            });
+        // Tell app.js to animate these new elements we just injected!
+        setTimeout(() => {
+          if (typeof initGlobalAnimations === "function") {
+            initGlobalAnimations();
+          }
+          if (typeof ScrollTrigger !== "undefined") {
             ScrollTrigger.refresh();
-          }, 100);
-        }
+          }
+        }, 100);
+      }
 
-        // Fire the static function to load the grid!
-        loadProjects();
-      });
+      // Fire the function as soon as the page loads
+      window.addEventListener("DOMContentLoaded", loadProjects);
     </script>
   </body>
 </html>

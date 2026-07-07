@@ -452,56 +452,6 @@
     <!-- Lenis Smooth Scrolling -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
-    <script>
-      window.addEventListener("load", () => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // 1. Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: "vertical",
-          gestureDirection: "vertical",
-          smooth: true,
-          mouseMultiplier: 1,
-          smoothTouch: false,
-          touchMultiplier: 2,
-          infinite: false,
-        });
-
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Integrate Lenis with GSAP
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-          lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0, 0);
-
-        // 2. Storytelling Reveal Animations (Fade Up)
-        const revealElements = gsap.utils.toArray(".gs-reveal");
-        revealElements.forEach((elem) => {
-          gsap.fromTo(
-            elem,
-            { autoAlpha: 0, y: 40 },
-            {
-              duration: 1,
-              autoAlpha: 1,
-              y: 0,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: elem,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-            },
-          );
-        });
-      });
-    </script>
+    <script src="app.js"></script>
   </body>
 </html>
