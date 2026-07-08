@@ -96,7 +96,10 @@
     <!-- ==============================================
          SECTION 1: HERO CONTAINER (300vh Scroll-Driven)
          ============================================== -->
-    <section id="hero-track" class="relative h-[300vh] w-full bg-primary-dark">
+    <section
+      id="hero-track"
+      class="relative h-[120vh] lg:h-[300vh] w-full bg-primary-dark"
+    >
       <!-- Sticky Viewport -->
       <div
         class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between z-0"
@@ -857,6 +860,7 @@
         }
 
         // Create a GSAP MatchMedia instance
+        // Create a GSAP MatchMedia instance
         let mm = gsap.matchMedia();
 
         // 1. DESKTOP ANIMATION (1024px and wider)
@@ -871,7 +875,7 @@
           });
 
           heroTlDesktop
-            // Text Animation
+            // Replaced fontSize with scale to prevent resize bugs!
             .to(
               "#varchas-brand",
               {
@@ -879,7 +883,7 @@
                 left: "100%",
                 xPercent: -100,
                 yPercent: -100,
-                fontSize: "15vw",
+                scale: 1.5,
                 duration: 2,
                 ease: "sine.inOut",
               },
@@ -911,12 +915,12 @@
               trigger: "#hero-track",
               start: "top top",
               end: "bottom bottom",
-              scrub: 1.5,
+              scrub: 0.5,
             },
           });
 
-          // Only animate the text! The background video handles itself.
           heroTlMobile
+            // Replaced fontSize with scale here as well!
             .to(
               "#varchas-brand",
               {
@@ -924,7 +928,7 @@
                 left: "100%",
                 xPercent: -100,
                 yPercent: -100,
-                fontSize: "15vw",
+                scale: 1.2,
                 duration: 2,
                 ease: "sine.inOut",
               },
@@ -934,10 +938,8 @@
               "#varchas-sub",
               { yPercent: -150, opacity: 0, duration: 1.5, ease: "sine.inOut" },
               0,
-            )
-            .to({}, { duration: 1 }); // Padding buffer at the end
+            );
         });
-
         // 3. Parallax Banner Animation
         gsap.to("#parallax-img", {
           yPercent: 20,
