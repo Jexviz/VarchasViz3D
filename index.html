@@ -103,35 +103,52 @@
       >
         <!-- Background Animation Layers (Fixed z-index & No Scaling) -->
         <div class="absolute inset-0 z-0 hw-accel">
-          <!-- Layer 0: The Empty Grid (Starting State) -->
+          <!-- MOBILE/LAPTOP: Hardware-Accelerated Video -->
+          <video
+            id="mobile-bg-video"
+            class="absolute inset-0 w-full h-full object-cover lg:hidden opacity-60 bg-primary-dark"
+            src="images/landingvid.mp4"
+            poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1000&auto=format&fit=crop"
+            muted
+            playsinline
+            autoplay
+            loop
+          ></video>
+
+          <!-- DESKTOP: GSAP Image Layers -->
           <div
-            id="layer-grid"
-            class="absolute inset-0 blueprint-bg opacity-100"
-          ></div>
-
-          <!-- Layer 1: 3D Clay Wireframe -->
-          <div id="layer-clay" class="absolute inset-0 opacity-0">
-            <img
-              src="images/Picsart_26-06-30_22-19-45-129 (1).jpg"
-              alt="Architecture Clay"
-              class="w-full h-full object-cover"
-            />
-          </div>
-
-          <!-- Layer 2: Final Render -->
-          <div id="layer-render" class="absolute inset-0 opacity-0">
-            <img
-              src="images/Picsart_26-06-30_22-18-41-479.png"
-              alt="Architecture Render"
-              class="w-full h-full object-cover"
-            />
-            <!-- Dark gradient to ensure text readability -->
+            id="desktop-animation-layers"
+            class="hidden lg:block absolute inset-0 w-full h-full"
+          >
+            <!-- Layer 0: The Empty Grid (Starting State) -->
             <div
-              class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"
+              id="layer-grid"
+              class="absolute inset-0 blueprint-bg opacity-100"
             ></div>
+
+            <!-- Layer 1: 3D Clay Wireframe -->
+            <div id="layer-clay" class="absolute inset-0 opacity-0">
+              <img
+                src="images/Picsart_26-06-30_22-19-45-129 (1).jpg"
+                alt="Architecture Clay"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- Layer 2: Final Render -->
+            <div id="layer-render" class="absolute inset-0 opacity-0">
+              <img
+                src="images/Picsart_26-06-30_22-18-41-479.png"
+                alt="Architecture Render"
+                class="w-full h-full object-cover"
+              />
+              <!-- Dark gradient to ensure text readability -->
+              <div
+                class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"
+              ></div>
+            </div>
           </div>
         </div>
-
         <!-- UI Container (Sits on top of backgrounds) -->
         <div
           class="relative z-10 w-full h-full flex flex-col p-6 md:p-12 pointer-events-none"
@@ -794,8 +811,6 @@
         // ----------------------------------------------------
         // UI Text Initial Positioning Setup
         // ----------------------------------------------------
-        // 1. Setup: Use transforms instead of layout properties
-        // 1. Setup: Restored your original positioning
         gsap.set("#varchas-brand", {
           top: "45%",
           left: "50%",
@@ -810,49 +825,118 @@
           yPercent: -50,
         });
 
-        // 2. Hero Transformation Sequence
-        const heroTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#hero-track",
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1.5,
-          },
+        // ----------------------------------------------------
+        // Bulletproof Mobile Video Autoplay Fix
+        // ----------------------------------------------------
+        const mobileVideo = document.getElementById("mobile-bg-video");
+        if (mobileVideo) {
+          // Attempt to force play immediately
+          let playPromise = mobileVideo.play();
+
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              // If the browser blocks autoplay (e.g. Low Power Mode),
+              // wait for the user's first touch/scroll to start it.
+              window.addEventListener(
+                "touchstart",
+                () => {
+                  mobileVideo.play();
+                },
+                { once: true },
+              );
+
+              window.addEventListener(
+                "scroll",
+                () => {
+                  mobileVideo.play();
+                },
+                { once: true },
+              );
+            });
+          }
+        }
+
+        // Create a GSAP MatchMedia instance
+        let mm = gsap.matchMedia();
+
+        // 1. DESKTOP ANIMATION (1024px and wider)
+        mm.add("(min-width: 1024px)", () => {
+          const heroTlDesktop = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#hero-track",
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 1.5,
+            },
+          });
+
+          heroTlDesktop
+            // Text Animation
+            .to(
+              "#varchas-brand",
+              {
+                top: "100%",
+                left: "100%",
+                xPercent: -100,
+                yPercent: -100,
+                fontSize: "15vw",
+                duration: 2,
+                ease: "sine.inOut",
+              },
+              0,
+            )
+            .to(
+              "#varchas-sub",
+              { yPercent: -150, opacity: 0, duration: 1.5, ease: "sine.inOut" },
+              0,
+            )
+            // Heavy Layer Animations
+            .to(
+              "#layer-clay",
+              { opacity: 1, duration: 2, ease: "sine.inOut" },
+              1,
+            )
+            .to(
+              "#layer-render",
+              { opacity: 1, duration: 2, ease: "sine.inOut" },
+              3,
+            )
+            .to({}, { duration: 1 });
         });
 
-        heroTl
-          // Restored your original text animation!
-          .to(
-            "#varchas-brand",
-            {
-              top: "100%",
-              left: "100%",
-              xPercent: -100,
-              yPercent: -100,
-              fontSize: "15vw",
-              duration: 2,
-              ease: "sine.inOut",
+        // 2. MOBILE & LAPTOP ANIMATION (Below 1024px)
+        mm.add("(max-width: 1023px)", () => {
+          const heroTlMobile = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#hero-track",
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 1.5,
             },
-            0,
-          )
-          .to(
-            "#varchas-sub",
-            {
-              yPercent: -150,
-              opacity: 0,
-              duration: 1.5,
-              ease: "sine.inOut",
-            },
-            0,
-          )
-          // The rest stays optimized
-          .to("#layer-clay", { opacity: 1, duration: 2, ease: "sine.inOut" }, 1)
-          .to(
-            "#layer-render",
-            { opacity: 1, duration: 2, ease: "sine.inOut" },
-            3,
-          )
-          .to({}, { duration: 1 });
+          });
+
+          // Only animate the text! The background video handles itself.
+          heroTlMobile
+            .to(
+              "#varchas-brand",
+              {
+                top: "100%",
+                left: "100%",
+                xPercent: -100,
+                yPercent: -100,
+                fontSize: "15vw",
+                duration: 2,
+                ease: "sine.inOut",
+              },
+              0,
+            )
+            .to(
+              "#varchas-sub",
+              { yPercent: -150, opacity: 0, duration: 1.5, ease: "sine.inOut" },
+              0,
+            )
+            .to({}, { duration: 1 }); // Padding buffer at the end
+        });
 
         // 3. Parallax Banner Animation
         gsap.to("#parallax-img", {
