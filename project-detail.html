@@ -89,40 +89,6 @@
     </section>
 
     <!-- ==============================================
-         SECTION 2: METADATA GRID
-         ============================================== -->
-    <section class="px-6 md:px-12 mb-16 gs-reveal">
-      <div
-        class="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-black/10"
-      >
-        <!-- Year -->
-        <div class="flex flex-col gap-2">
-          <span class="text-sm text-primary-dark/50 font-medium">Year:</span>
-          <span id="dyn-year" class="text-lg font-medium">2026</span>
-        </div>
-        <!-- Service -->
-        <div class="flex flex-col gap-2">
-          <span class="text-sm text-primary-dark/50 font-medium">Service:</span>
-          <span id="dyn-service" class="text-lg font-medium"
-            >Interior Design</span
-          >
-        </div>
-        <!-- Duration -->
-        <div class="flex flex-col gap-2">
-          <span class="text-sm text-primary-dark/50 font-medium"
-            >Duration:</span
-          >
-          <span id="dyn-duration" class="text-lg font-medium">3 Months</span>
-        </div>
-        <!-- Budget -->
-        <div class="flex flex-col gap-2">
-          <span class="text-sm text-primary-dark/50 font-medium">Budget:</span>
-          <span id="dyn-budget" class="text-lg font-medium">€20K - €30K</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
          SECTION 3: MAIN HERO IMAGE
          ============================================== -->
     <section class="px-6 md:px-12 mb-24">
@@ -297,18 +263,15 @@
         const allProjects = [
           {
             id: 1,
-            title: "Core Apartment",
-            location: "A hyper-aesthetic residential space in Surat, Gujarat.",
-            year: "2025",
-            service: "Interior Architecture",
-            duration: "8 Months",
-            budget: "₹45L - ₹60L",
+            title: "Modern Living Room Visualizations",
+            location:
+              "A hyper-aesthetic residential living space in Surat, Gujarat.",
             description:
-              "The Core Apartment is a masterclass in modern essentialism...",
+              "A masterclass in digital essentialism. We focused on highly accurate global illumination, tactile 4K textures, and bespoke 3D furniture modeling to create an inviting, sophisticated environment.",
             constraints:
-              "The primary challenge was introducing warmth into a heavily...",
+              "Balancing the expansive room without making the 3D scene feel flat. We carefully adjusted virtual camera focal lengths and light bounces to naturally anchor the spatial flow.",
             outcome:
-              "A serene, highly atmospheric living space that champions...",
+              "Photorealistic renders that bridge architectural concepts with reality, demonstrating lifelike lighting scenarios and perfectly scaled seating arrangements.",
             cover_image_url:
               "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop",
             image_1: "../images/1.jpg",
@@ -316,15 +279,15 @@
               "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2600&auto=format&fit=crop",
             gallery: [
               {
-                url: "../images/Untitled1.png",
+                url: "../images/1 (1).jpg",
                 gridClass: "md:col-span-8 md:row-span-2",
               },
               {
-                url: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2500&auto=format&fit=crop",
+                url: "../images/8.jpg",
                 gridClass: "md:col-span-4 md:row-span-1",
               },
               {
-                url: "../images/camera.005.jpg",
+                url: "../images/6.jpg",
                 gridClass: "md:col-span-4 md:row-span-1",
               },
               {
@@ -335,91 +298,93 @@
           },
           {
             id: 2,
-            title: "Linear Workspace",
-            location: "A modern workspace designed for deep focus.",
-            year: "2026",
-            service: "Commercial Design",
-            duration: "4 Months",
-            budget: "₹20L - ₹35L",
-            cover_image_url:
-              "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
-            image_1:
-              "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop",
-            image_2:
-              "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2500&auto=format&fit=crop",
+            title: "Kitchen",
+            location:
+              "Sleek culinary space visualizations for developer marketing.",
+            description:
+              "Showcasing a highly functional culinary space through hyper-realistic CGI. We emphasized material contrast, seamlessly integrating matte cabinetry with highly reflective marble countertops.",
+            constraints:
+              "Simulating realistic artificial and natural light interactions. We had to expertly balance exposure levels to highlight metallic fixtures and glossy surfaces without blowing out the scene.",
+            outcome:
+              "Crisp, highly detailed visual assets that highlight spatial efficiency and premium finishes, delivering immediate impact for pre-construction marketing.",
+            cover_image_url: (src =
+              "https://images.unsplash.com/photo-1632583824020-937ae9564495?q=80&w=1858&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+            image_1: "images/modern-kitchen-design-interior.jpg",
+            image_2: "images/render-3d-contemporary-kitchen.jpg",
             gallery: [
               {
-                url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1500&auto=format&fit=crop",
+                url: "images/Camera.002 (2).jpg",
                 gridClass: "md:col-span-5 md:row-span-2",
               },
               {
-                url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1500&auto=format&fit=crop",
+                url: "images/beautiful-kitchen-interior-design.jpg",
                 gridClass: "md:col-span-7 md:row-span-1",
               },
               {
-                url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500&auto=format&fit=crop",
+                url: "images/8.jpg",
                 gridClass: "md:col-span-7 md:row-span-1",
               },
             ],
           },
           {
             id: 3,
-            title: "Horizon Villa",
-            location: "Expansive luxury villa with landscape integration.",
-            year: "2024",
-            service: "Exterior Visualization",
-            duration: "12 Months",
-            budget: "₹1.2Cr+",
-            cover_image_url:
-              "https://images.unsplash.com/photo-1688653802629-5360086bf632?q=80&w=2532&auto=format&fit=crop",
+            title: "Luxury Spa Bathroom",
+            location:
+              "High-end material showcasing through photorealistic CGI.",
+            description:
+              "A technical study in reflections and material accuracy. This project emphasizes the digital interplay of light across brushed brass fixtures, frosted glass, and complex tile displacement maps.",
+            constraints:
+              "Managing complex ray-tracing limits. Bathrooms are notoriously difficult to render due to multiple reflective and refractive surfaces bouncing light infinitely, requiring precise shader optimization.",
+            outcome:
+              "Ultra-crisp visual assets that sell the premium feel of the space, showcasing every material finish with stunning photorealistic fidelity.",
+            cover_image_url: "images/Camera.005.jpg",
             image_1:
-              "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop",
+              "https://media.houseandgarden.co.uk/photos/69c54a1b97adebaee3f23303/master/w_2048%2Cc_limit/240709-Geraldine-Dohogne-062-Web.jpg",
             image_2:
-              "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2500&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1695002817411-203c7f19dfa3?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             gallery: [
               {
-                url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1500&auto=format&fit=crop",
+                url: "images/Camera.007.jpg",
                 gridClass: "md:col-span-6 md:row-span-1",
               },
               {
-                url: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1500&auto=format&fit=crop",
+                url: "https://images.unsplash.com/photo-1661107259637-4e1c55462428?q=80&w=986&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 gridClass: "md:col-span-6 md:row-span-1",
               },
               {
-                url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1500&auto=format&fit=crop",
+                url: "https://images.unsplash.com/photo-1603825491103-bd638b1873b0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGJhdGhyb29tc3xlbnwwfHwwfHx8MA%3D%3D",
                 gridClass: "md:col-span-6 md:row-span-1",
               },
               {
-                url: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1500&auto=format&fit=crop",
+                url: "https://images.unsplash.com/photo-1576698483491-8c43f0862543?q=80&w=948&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 gridClass: "md:col-span-6 md:row-span-1",
               },
             ],
           },
           {
             id: 4,
-            title: "Studio Minimal",
-            location: "A compact living space designed with simplicity.",
-            year: "2023",
-            service: "Space Planning",
-            duration: "3 Months",
-            budget: "₹15L - ₹20L",
-            cover_image_url:
-              "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
-            image_1:
-              "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=2000&auto=format&fit=crop",
-            image_2:
-              "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2500&auto=format&fit=crop",
+            title: "Tranquil Master Bedroom",
+            location: "Cozy and atmospheric interior visualizations.",
+            description:
+              "A calm and inviting digital space prioritizing soft aesthetics. We utilized advanced 3D cloth simulations for the bedding and delicate ambient occlusion to enhance the subtle architectural details.",
+            constraints:
+              "Capturing the nuanced interplay of dim, moody lighting and soft fabrics without rendering the scene too dark or noisy. We optimized our render engines for a clean, velvety output.",
+            outcome:
+              "Warm, emotive 3D imagery that accurately conveys the relaxing mood and tactile textures of a high-end personal retreat.",
+            cover_image_url: "images/Untitled1.png",
+            image_1: "images/Camera.0002.jpg.jpeg",
+            image_2: "images/Camera.0004 (1).jpg",
             gallery: [
               {
-                url: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2500&auto=format&fit=crop",
+                url: "images/Untitled2.jpg",
                 gridClass: "md:col-span-12 md:row-span-2",
               },
               {
-                url: "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=1000&auto=format&fit=crop",
+                url: "images/Camera.002 (3).jpg",
                 gridClass: "md:col-span-4 md:row-span-1",
               },
               {
-                url: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1500&auto=format&fit=crop",
+                url: "images/Camera.01204.jpg.jpeg",
                 gridClass: "md:col-span-8 md:row-span-1",
               },
             ],
@@ -434,32 +399,32 @@
         }
 
         // --- 3. INJECT DATA INTO HTML ---
-        document.getElementById("dyn-title").innerText = project.title || "";
-        document.getElementById("dyn-subtitle").innerText =
-          project.location || "";
-        document.getElementById("dyn-year").innerText = project.year || "";
-        document.getElementById("dyn-service").innerText =
-          project.service || "";
-        document.getElementById("dyn-duration").innerText =
-          project.duration || "";
-        document.getElementById("dyn-budget").innerText = project.budget || "";
+        // --- 3. INJECT DATA INTO HTML (BULLETPROOF) ---
+        const safeSetText = (id, text) => {
+          const el = document.getElementById(id);
+          if (el) el.innerText = text || "";
+        };
 
-        if (project.description)
-          document.getElementById("dyn-description").innerText =
-            project.description;
-        if (project.constraints)
-          document.getElementById("dyn-constraints").innerText =
-            project.constraints;
-        if (project.outcome)
-          document.getElementById("dyn-outcome").innerText = project.outcome;
+        const safeSetImage = (id, src) => {
+          const el = document.getElementById(id);
+          if (el && src) el.src = src;
+        };
 
-        if (project.cover_image_url)
-          document.getElementById("dyn-cover").src = project.cover_image_url;
-        if (project.image_1)
-          document.getElementById("dyn-image-1").src = project.image_1;
-        if (project.image_2)
-          document.getElementById("dyn-image-2").src = project.image_2;
+        safeSetText("dyn-title", project.title);
+        safeSetText("dyn-subtitle", project.location);
+        safeSetText("dyn-year", project.year);
+        safeSetText("dyn-service", project.service);
+        safeSetText("dyn-duration", project.duration);
+        safeSetText("dyn-budget", project.budget);
+        safeSetText("dyn-description", project.description);
+        safeSetText("dyn-constraints", project.constraints);
+        safeSetText("dyn-outcome", project.outcome);
 
+        safeSetImage("dyn-cover", project.cover_image_url);
+        safeSetImage("dyn-image-1", project.image_1);
+        safeSetImage("dyn-image-2", project.image_2);
+
+        // --- 4. INJECT GALLERY ---
         // --- 4. INJECT GALLERY ---
         const galleryContainer = document.getElementById("dyn-gallery");
         const gallerySection = galleryContainer.parentElement;
