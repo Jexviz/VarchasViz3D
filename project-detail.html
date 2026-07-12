@@ -12,6 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
 
     <!-- Tailwind CSS -->
     <script src="component.js"></script>
@@ -425,7 +426,6 @@
         safeSetImage("dyn-image-2", project.image_2);
 
         // --- 4. INJECT GALLERY ---
-        // --- 4. INJECT GALLERY ---
         const galleryContainer = document.getElementById("dyn-gallery");
         const gallerySection = galleryContainer.parentElement;
 
@@ -433,10 +433,10 @@
           let galleryHTML = "";
 
           project.gallery.forEach((item) => {
+            // STEP 1: Added loading="lazy" decoding="async" to this image
             galleryHTML += `
                 <div class="${item.gridClass} min-h-[250px] md:min-h-[350px] overflow-hidden rounded-sm bg-gray-300 gs-image gs-reveal">
-                  <img src="${item.url}" alt="Gallery View" class="w-full h-full object-cover scale-105" loading="lazy" 
-                    decoding="async" />
+                  <img src="${item.url}" loading="lazy" decoding="async" alt="Gallery View" class="w-full h-full object-cover scale-105" />
                 </div>
               `;
           });

@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
 
     <script src="component.js"></script>
     <link href="./dist/output.css" rel="stylesheet" />
@@ -133,26 +134,27 @@
             id: 1,
             title: "Living Room Concept",
             year: "2025",
-            cover_image_url: (src = "../images/1 (1).jpg"),
+            cover_image_url: "../images/1 (1).jpg",
           },
           {
             id: 2,
             title: "Kitchen",
             year: "2026",
-            cover_image_url: (src =
-              "https://images.unsplash.com/photo-1632583824020-937ae9564495?q=80&w=1858&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+            // Optimized Unsplash URL for ultra-fast loading
+            cover_image_url:
+              "https://images.unsplash.com/photo-1632583824020-937ae9564495?q=60&w=1200&fm=webp&auto=format&fit=crop",
           },
           {
             id: 3,
             title: "Bathroom",
             year: "2024",
-            cover_image_url: (src = "../images/camera.005.jpg"),
+            cover_image_url: "../images/camera.005.jpg",
           },
           {
             id: 4,
             title: "Bedroom",
             year: "2023",
-            cover_image_url: (src = "../images/camera.002.jpg"),
+            cover_image_url: "../images/camera.002.jpg",
           },
         ];
 
@@ -185,26 +187,26 @@
         projects.forEach((project, index) => {
           const style = layouts[index % layouts.length];
           const cardHTML = `
-          <div class="${style.wrapper} gs-reveal">
-            <a href="project-detail.html?id=${project.id}" class="group block cursor-pointer">
-              <div class="${style.imgClass} overflow-hidden bg-gray-200 rounded-sm gs-image">
-                <img
-                  src="${project.cover_image_url}"
-                  class="w-full h-full object-cover transition-transform duration-[1.2s] ease-expo group-hover:scale-105"
-                  alt="${project.title}"
-                  loading="lazy" 
-                  decoding="async"
-                />
-              </div>
-              <div class="flex justify-between items-center mt-6">
-                <h3 class="text-2xl font-medium tracking-tight group-hover:opacity-70 transition-opacity">
-                  ${project.title}
-                </h3>
-                <span class="text-sm font-medium text-primary-dark/60">${project.year}</span>
-              </div>
-            </a>
-          </div>
-        `;
+            <div class="${style.wrapper} gs-reveal">
+              <a href="project-detail.html?id=${project.id}" class="group block cursor-pointer">
+                <div class="${style.imgClass} overflow-hidden bg-gray-200 rounded-sm gs-image">
+                  <img
+                    src="${project.cover_image_url}"
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover transition-transform duration-[1.2s] ease-expo group-hover:scale-105"
+                    alt="${project.title}"
+                  />
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                  <h3 class="text-2xl font-medium tracking-tight group-hover:opacity-70 transition-opacity">
+                    ${project.title}
+                  </h3>
+                  <span class="text-sm font-medium text-primary-dark/60">${project.year}</span>
+                </div>
+              </a>
+            </div>
+          `;
           grid.innerHTML += cardHTML;
         });
 

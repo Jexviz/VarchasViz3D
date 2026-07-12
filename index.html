@@ -12,6 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
 
     <!-- Tailwind CSS -->
     <link href="./dist/output.css" rel="stylesheet" />
@@ -258,6 +259,8 @@
             src="https://images.unsplash.com/photo-1632583824020-937ae9564495?q=80&w=1858&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-105 group-hover:brightness-90"
             alt="Concrete House"
+            loading="lazy"
+            decoding="async"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -278,6 +281,8 @@
             src="../images/camera.005.jpg"
             class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-105 group-hover:brightness-90"
             alt="Axis Office"
+            loading="lazy"
+            decoding="async"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -298,6 +303,8 @@
             src="../images/camera.002.jpg"
             class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-150 group-hover:brightness-90"
             alt="The Pavilion"
+            loading="lazy"
+            decoding="async"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -679,39 +686,36 @@
           });
         }
 
+        // ----------------------------------------------------
+        // Modern Video Preloader (Failsafe built-in)
+        // ----------------------------------------------------
         const counterElement = document.getElementById("counter");
 
-        // Array of the massive images you need to load for the hero section
-        const heroImages = [
-          "images/Picsart_26-06-30_22-19-45-129 (1).jpg",
-          "images/Picsart_26-06-30_22-18-41-479.png",
-        ];
+        // Because videos load asynchronously, we run a rapid, sleek percentage
+        // counter that guarantees the user gets into the site within 1.5 seconds.
+        let progress = 0;
+        let progressInterval = setInterval(() => {
+          // Add a random amount of progress to make it look organic
+          progress += Math.floor(Math.random() * 15) + 5;
 
-        let loadedCount = 0;
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(progressInterval);
 
-        function updateProgress() {
-          loadedCount++;
-          const progress = Math.round((loadedCount / heroImages.length) * 100);
-          counterElement.innerText = progress + "%";
-
-          // When all hero images are downloaded, slide the preloader up
-          if (loadedCount === heroImages.length) {
+            // Slide the preloader out of the way safely
             gsap.to("#preloader", {
               yPercent: -100,
               duration: 1.2,
               ease: "expo.inOut",
-              delay: 0.2, // Small buffer for visual smoothness
+              delay: 0.2,
             });
           }
-        }
 
-        // Trigger real loading of the images in the background
-        heroImages.forEach((src) => {
-          const img = new Image();
-          img.onload = updateProgress;
-          img.onerror = updateProgress; // Proceed even if an image fails to load
-          img.src = src;
-        }); // 1. Init Lenis Smooth Scroll
+          if (counterElement) {
+            counterElement.innerText = progress + "%";
+          }
+        }, 80); // Runs the calculation every 80 milliseconds
+
         const lenis = new Lenis({
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
