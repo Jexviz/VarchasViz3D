@@ -94,6 +94,8 @@
             src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=3200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Dark Architectural Facade"
             class="w-full h-full object-cover opacity-50"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="relative z-10 text-center px-6 flex flex-col items-center">
@@ -183,24 +185,26 @@
         projects.forEach((project, index) => {
           const style = layouts[index % layouts.length];
           const cardHTML = `
-            <div class="${style.wrapper} gs-reveal">
-              <a href="project-detail.html?id=${project.id}" class="group block cursor-pointer">
-                <div class="${style.imgClass} overflow-hidden bg-gray-200 rounded-sm gs-image">
-                  <img
-                    src="${project.cover_image_url}"
-                    class="w-full h-full object-cover transition-transform duration-[1.2s] ease-expo group-hover:scale-105"
-                    alt="${project.title}"
-                  />
-                </div>
-                <div class="flex justify-between items-center mt-6">
-                  <h3 class="text-2xl font-medium tracking-tight group-hover:opacity-70 transition-opacity">
-                    ${project.title}
-                  </h3>
-                  <span class="text-sm font-medium text-primary-dark/60">${project.year}</span>
-                </div>
-              </a>
-            </div>
-          `;
+          <div class="${style.wrapper} gs-reveal">
+            <a href="project-detail.html?id=${project.id}" class="group block cursor-pointer">
+              <div class="${style.imgClass} overflow-hidden bg-gray-200 rounded-sm gs-image">
+                <img
+                  src="${project.cover_image_url}"
+                  class="w-full h-full object-cover transition-transform duration-[1.2s] ease-expo group-hover:scale-105"
+                  alt="${project.title}"
+                  loading="lazy" 
+                  decoding="async"
+                />
+              </div>
+              <div class="flex justify-between items-center mt-6">
+                <h3 class="text-2xl font-medium tracking-tight group-hover:opacity-70 transition-opacity">
+                  ${project.title}
+                </h3>
+                <span class="text-sm font-medium text-primary-dark/60">${project.year}</span>
+              </div>
+            </a>
+          </div>
+        `;
           grid.innerHTML += cardHTML;
         });
 

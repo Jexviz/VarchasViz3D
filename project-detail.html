@@ -131,6 +131,8 @@
           src=""
           alt="Minimalist suspended sculpture"
           class="w-full h-full object-cover scale-105"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -162,6 +164,8 @@
           src=""
           alt="Curved modern sofa"
           class="w-full h-full object-cover scale-105"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -431,7 +435,8 @@
           project.gallery.forEach((item) => {
             galleryHTML += `
                 <div class="${item.gridClass} min-h-[250px] md:min-h-[350px] overflow-hidden rounded-sm bg-gray-300 gs-image gs-reveal">
-                  <img src="${item.url}" alt="Gallery View" class="w-full h-full object-cover scale-105" />
+                  <img src="${item.url}" alt="Gallery View" class="w-full h-full object-cover scale-105" loading="lazy" 
+                    decoding="async" />
                 </div>
               `;
           });
